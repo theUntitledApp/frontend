@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 import { SmallText, RegularText, BoldText } from './src/components/index';
+import { Headline } from './src/components/index';
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -17,7 +18,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <SmallText textStyles={{width: "70%", color: 'yellow', marginBottom: 5}}>Small Text</SmallText>
+      <Headline level="h1">Sheesh</Headline>
+      <SmallText textStyles={{ width: "70%", color: 'yellow', marginBottom: 5 }}>Small Text</SmallText>
       <BoldText> Bold Text</BoldText>
       <RegularText>Regular Text</RegularText>
       <Text>Open up App.tsx to sta222rt working on your app!</Text>
