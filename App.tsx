@@ -1,12 +1,13 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import RootStackParamList from './src/screens/rootStackParamList';
 
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 
 import { Welcome, Login } from './src/screens/screenIndex';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   let [fontsLoaded] = useFonts({

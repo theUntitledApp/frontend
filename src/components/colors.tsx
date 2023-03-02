@@ -1,4 +1,4 @@
-export const colors = {
+const colors = {
   white: '#fff',
 
   // TEXT AND ICON COLORS
@@ -9,3 +9,5 @@ export const colors = {
   poisonGreen: '#0F3D3E',
   midnightBlack: '#100F0F',
 }
+
+export default colors;
