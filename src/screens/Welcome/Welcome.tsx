@@ -2,9 +2,10 @@ import { SafeAreaView, Button, StyleSheet, Text, View, ScrollView } from 'react-
 import React from 'react'
 import { Header } from '../../components/index';
 
-import Props from './WelcomeType';
-
 import colors from '../../components/colors'
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParams } from '../rootStacks';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,85 +14,13 @@ const styles = StyleSheet.create({
   },
 })
 
-const Welcome = ({ navigation }: Props) => {
+const Welcome = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>();
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView scrollEventThrottle={16} stickyHeaderIndices={[0]}>
-        <Header title={'Home'} leftIcon={{ icon: 'friends', navigateTo: 'Profile' }} rightIcon={'friends'} />
+        <Header title={'Home'} leftIcon={{ icon: 'friends', navigateTo: 'Login' }} rightIcon={{ icon: 'friends', navigateTo: 'Login' }} />
         <View >
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
           <Text style={{ color: colors.beige }}>Gawdd damn</Text>
           <Text style={{ color: colors.beige }}>Gawdd damn</Text>
           <Text style={{ color: colors.beige }}>Gawdd damn</Text>
@@ -112,7 +41,7 @@ const Welcome = ({ navigation }: Props) => {
           <Button
             title="Login"
             onPress={() =>
-              navigation.navigate('Login', { itemId: 2 })
+              navigation.navigate("Login")
             }
           />
         </View>

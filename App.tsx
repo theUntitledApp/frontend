@@ -1,13 +1,13 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import RootStackParamList from './src/screens/rootStackParamList';
+import { RootStackParams } from './src/screens/rootStacks';
 
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 
 import { Welcome, Login } from './src/screens/screenIndex';
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const RootStack = createNativeStackNavigator<RootStackParams>();
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -21,17 +21,18 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator
+      <RootStack.Navigator
+        initialRouteName="Welcome"
         screenOptions={{
           headerShown: false
         }}
       >
-        <Stack.Screen
+        <RootStack.Screen
           name="Welcome"
           component={Welcome}
         />
-        <Stack.Screen name='Login' component={Login} />
-      </Stack.Navigator>
+        <RootStack.Screen name='Login' component={Login} />
+      </RootStack.Navigator>
     </NavigationContainer>
   );
 }
