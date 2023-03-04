@@ -1,5 +1,6 @@
 const colors = {
   white: '#fff',
+  red: 'red',
 
   // TEXT AND ICON COLORS
   primary: '#F1F1F1',

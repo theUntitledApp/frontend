@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 
-import { colors } from '../colors';
+import colors from '../colors';
 import { TextProps } from './types';
 
 const styles = StyleSheet.create({

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 
-import { colors } from './colors';
+import colors from './colors';
 
 export type HeadlineProps = {
   level: string;
@@ -12,7 +12,7 @@ export type HeadlineProps = {
 
 const styles = StyleSheet.create({
   basicDisplay: {
-    color: colors.primary,
+    color: colors.beige,
     textAlign: 'left',
     fontFamily: 'Lato-Bold',
   },

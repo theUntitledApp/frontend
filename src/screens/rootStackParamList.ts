@@ -1,6 +1,6 @@
 type RootStackParamList = {
   Welcome: undefined,
-  Login: { name: string };
+  Login: { itemId: number };
 }
 
 export default RootStackParamList;
