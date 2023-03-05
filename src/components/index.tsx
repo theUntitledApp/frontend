@@ -8,6 +8,7 @@ import Headline from './Headline';
 
 // Regular Components
 import Header from './Header';
+import Tab from './Tab';
 
 // ICONS
 import Icon from './Icon';
@@ -19,4 +20,5 @@ export {
   RegularText,
   Headline,
   Header,
+  Tab,
 }
