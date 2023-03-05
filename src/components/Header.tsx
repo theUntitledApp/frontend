@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { RootStackRoute } from '../screens/rootStacks';
 
 import colors from './colors';
@@ -18,34 +18,52 @@ export type HeaderProps = {
 }
 
 
+//TODO Center of Text is not 100% Accurate look into it
 
 const styles = StyleSheet.create({
-  header: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
+  headerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingVertical: 10,
-
+    paddingHorizontal: 20,
   },
-  icon: {
+  headerNoIcons: {
+    justifyContent: "center",
+  },
+  headerWithLeftIcon: {
+    justifyContent: "flex-start",
+  },
+  headerWithRightIcon: {
+    justifyContent: "flex-end",
+  },
+  titleContainer: {
     flex: 1,
-    height: 100,
-    justifyContent: 'center',
-  }
+    alignItems: "center",
+  },
 })
 
 const Header: FunctionComponent<HeaderProps> = (props) => {
   const iconSize = 19;
-  const iconColor = colors.beige;
-  const iconLeft = props.leftIcon ? <Icon iconStyle={styles.icon} size={iconSize} iconProps={props.leftIcon} color={iconColor} /> : <View />;
-  const iconRight = props.rightIcon ? <Icon size={iconSize} iconProps={props.rightIcon} color={iconColor} /> : <View />;
+  const iconColor = colors.midnightBlack;
+  const hasLeftIcon = !!props.leftIcon;
+  const hasRightIcon = !!props.rightIcon;
+  const hasIcons = hasLeftIcon || hasRightIcon;
+
+  const styleArray = [
+    styles.headerContainer,
+    !hasIcons && styles.headerNoIcons,
+    hasLeftIcon && styles.headerWithLeftIcon,
+    hasRightIcon && styles.headerWithRightIcon,
+  ]
 
   return (
-    <View style={styles.header}>
-      {iconLeft}
-      <Headline level={'h2'}>{props.title}</Headline >
-      {iconRight}
+    <View style={styleArray}>
+      {props.leftIcon && <Icon size={iconSize} iconProps={props.leftIcon} color={iconColor} />}
+      <View style={styles.titleContainer}>
+        <Headline level={'h2'}>{props.title}</Headline >
+      </View>
+      {props.rightIcon && <Icon size={iconSize} iconProps={props.rightIcon} color={iconColor} />}
     </View>
   )
 }

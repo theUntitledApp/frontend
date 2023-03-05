@@ -10,43 +10,30 @@ import { RootStackParams } from '../rootStacks';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.midnightBlack,
+    backgroundColor: colors.beige,
   },
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 })
 
 const Welcome = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>();
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView scrollEventThrottle={16} stickyHeaderIndices={[0]}>
-        <Header title={'Home'} leftIcon={{ icon: 'friends', navigateTo: 'Login' }} rightIcon={{ icon: 'friends', navigateTo: 'Login' }} />
-        <View >
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Button
-            title="Login"
-            onPress={() =>
-              navigation.navigate("Login")
-            }
-          />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      <Header title={"Welcome"} />
+      <View style={styles.content}>
+        <Text style={{ color: colors.midnightBlack }} onPress={() => navigation.navigate('Login')}>Hello chicken wing</Text>
+        <Button
+          title="Home"
+          onPress={() =>
+            navigation.navigate("Home")
+          }
+        />
+      </View>
+    </SafeAreaView >
   )
 }
 

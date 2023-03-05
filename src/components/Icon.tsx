@@ -16,7 +16,6 @@ export type IconProps = {
   size: number;
   color?: string;
   iconStyle?: StyleProp<TextStyle>;
-  clickable?: boolean;
 }
 
 

@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactNode } from 'react';
-import { Text, StyleSheet, View } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 
 import colors from './colors';
 
@@ -12,8 +12,8 @@ export type HeadlineProps = {
 
 const styles = StyleSheet.create({
   basicDisplay: {
-    color: colors.beige,
-    textAlign: 'left',
+    color: colors.midnightBlack,
+    textAlign: 'center',
     fontFamily: 'Lato-Bold',
   },
   displayOne: {

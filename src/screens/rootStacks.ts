@@ -1,5 +1,6 @@
 const rootStackParamList = {
   Welcome: undefined,
+  Home: undefined,
   Login: undefined,
 }
 
