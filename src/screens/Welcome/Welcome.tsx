@@ -1,6 +1,6 @@
 import { SafeAreaView, Button, StyleSheet, Text, View, ScrollView } from 'react-native';
 import React from 'react'
-import { Header, Tab } from '../../components/index';
+import { Header, Tab, Form } from '../../components/index';
 
 import colors from '../../components/colors'
 import { useNavigation } from '@react-navigation/native';
@@ -13,17 +13,19 @@ const styles = StyleSheet.create({
     backgroundColor: colors.beige,
   },
   content: {
+    paddingTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
   }
 })
+
 
 const tabs = [
   {
     title: 'Login',
     content: (
       <View>
-        <Text> Content for Tab 1</Text>
+        <Form />
       </View>
     )
   },
@@ -50,8 +52,8 @@ const Welcome = () => {
             navigation.navigate("Home")
           }
         />
-        <Tab tabs={tabs} />
       </View>
+      <Tab tabs={tabs} />
     </SafeAreaView >
   )
 }

@@ -7,7 +7,7 @@ import { TextProps } from './types';
 const styles = StyleSheet.create({
   fontStyle: {
     fontSize: 13,
-    color: colors.primary,
+    color: colors.midnightBlack,
     textAlign: 'left',
     fontFamily: 'Lato-Regular',
   }

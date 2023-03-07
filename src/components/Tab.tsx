@@ -2,7 +2,7 @@ import React, { FunctionComponent, ReactNode, useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 type TabProps = {
-  tabs: Array<{ title: string, content: React.ReactNode }>
+  tabs: Array<{ title: string, content: ReactNode }>
 }
 
 const styles = StyleSheet.create({
