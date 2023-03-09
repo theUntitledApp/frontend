@@ -9,7 +9,7 @@ import Headline from './Headline';
 // Regular Components
 import Header from './Header';
 import Tab from './Tab';
-import Picker from './Picker';
+import Picker from './Picker/Picker'
 import Form from './Form';
 
 // ICONS
