@@ -10,5 +10,4 @@ export type PickerProps = {
     value: number,
     label: string,
   }[],
-  defaultValue: number,
 }

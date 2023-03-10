@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import Animated, {
@@ -28,12 +28,13 @@ const timingConfig = {
 const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
-    backgroundColor: colors.midnightBlack,
+    backgroundColor: 'red',
     justifyContent: "center",
     alignItems: "center",
   },
+  // container needs to be centered so if we reduce visible items it is still centered
   pickerContainer: {
-    width: 0.61 * WIDTH,
+    width: 0.5 * WIDTH,
     height: ITEM_HEIGHT * VISIBLE_ITEMS,
     overflow: "hidden",
   },
@@ -47,8 +48,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   label: {
-    color: colors.beige,
-    fontSize: 24,
+    color: colors.midnightBlack,
+    fontSize: 15,
     lineHeight: ITEM_HEIGHT,
     textAlign: "center",
     textAlignVertical: "center",
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
 
 // finds closes point to the wanted SnapPoint
 const findClosestSnapPoint = (snapPointValue: number, velocity: number, points: number[]) => {
+  'worklet';
   let maxValue: number = Infinity;
   const snapPoint = snapPointValue + 0.2 * velocity;
   let closestsSnapPoint = snapPoint;
@@ -117,20 +119,20 @@ const GestureHandler: FunctionComponent<GestureProps> = (props) => {
 }
 
 const Picker: FunctionComponent<PickerProps> = (props) => {
-  const { values, defaultValue } = props;
+  const { values } = props;
   const translateY = useSharedValue(0);
-
   const viewStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],
   }));
+
   return (
     <View style={styles.pickerContainer}>
       <Animated.View style={viewStyle}>
         {values.map((value, idx) => {
           const y = useDerivedValue(() =>
             interpolate(
-              (translateY.value - ITEM_HEIGHT * 2) / -ITEM_HEIGHT,
-              [idx - 3, idx, idx + 3],
+              (translateY.value - ITEM_HEIGHT * 2) / - ITEM_HEIGHT,
+              [idx - 2, idx, idx + 2],
               [-1, 0, 1],
               Extrapolate.CLAMP
             )
@@ -143,6 +145,7 @@ const Picker: FunctionComponent<PickerProps> = (props) => {
               { scale: 1 - 0.1 * Math.abs(y.value), }
             ],
           }));
+
           //Replace Text with our own text components Small or Regular
           return (
             <Animated.View key={value.value} style={[styles.item, childViewStyle]}>

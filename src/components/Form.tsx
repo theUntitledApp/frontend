@@ -4,18 +4,33 @@ import { Picker } from './index';
 
 
 const Form: FunctionComponent = () => {
-  const [selectedValue, setSelectedValue] = useState('Value 1');
-  const handleValueChange = (value: string) => {
-    setSelectedValue(value);
-  };
+  const mockValues = [
+    {
+      value: 0,
+      label: '+49'
+    },
+    {
+      value: 1,
+      label: '+234'
+    },
+    {
+      value: 2,
+      label: '+934'
+    },
+    {
+      value: 3,
+      label: '+234'
+    },
+    {
+      value: 4,
+      label: '+98'
+    },
+  ]
   return (
     <View>
-      <Text>Selected Value: {selectedValue}</Text>
-      <Picker
-        values={['Value 1', 'Value 2', 'Value 3', 'Value 4']}
-        onValueChange={handleValueChange}
-        selectedValue={selectedValue}
-      />
+      <Text>Selected Value: Meh</Text>
+      <Picker values={mockValues} />
+      <Text>Test123</Text>
     </View>
   );
 }
