@@ -9,8 +9,9 @@ import Animated, {
 } from "react-native-reanimated";
 
 import colors from '../colors';
+import { RegularText } from "../index";
 import PickerGestureHandler from "./PickerGestureHandler";
-import { ITEM_HEIGHT, VISIBLE_ITEMS, DURATION } from "./PickerConstants";
+import { ITEM_HEIGHT, VISIBLE_ITEMS } from "./PickerConstants";
 import { PickerProps } from './PickerTypes';
 
 const { width: WIDTH } = Dimensions.get("window");
@@ -75,10 +76,9 @@ const Picker: FunctionComponent<PickerProps> = (props) => {
             ],
           }));
 
-          //Replace Text with our own text components Small or Regular
           return (
             <Animated.View key={value.value} style={[styles.item, childViewStyle]}>
-              <Text style={styles.label}>{value.label}</Text>
+              <RegularText>{value.label}</RegularText>
             </Animated.View>
           );
         })}
