@@ -1,7 +1,15 @@
-import React, { FunctionComponent, useState } from 'react';
-import { View, Text } from 'react-native';
-import { Picker } from './index';
+import React, { FunctionComponent } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
+import { Picker } from './index';
+import { TEST } from './Picker/Picker';
+
+const styles = StyleSheet.create({
+  formContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  }
+})
 
 const Form: FunctionComponent = () => {
   const mockValues = [
@@ -11,7 +19,7 @@ const Form: FunctionComponent = () => {
     },
     {
       value: 1,
-      label: '+234'
+      label: '+2341324'
     },
     {
       value: 2,
@@ -27,10 +35,9 @@ const Form: FunctionComponent = () => {
     },
   ]
   return (
-    <View>
-      <Text>Selected Value: Meh</Text>
+    <View style={styles.formContainer}>
       <Picker values={mockValues} />
-      <Text>Test123</Text>
+      <Text>{TEST}</Text>
     </View>
   );
 }

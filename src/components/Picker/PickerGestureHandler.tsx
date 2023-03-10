@@ -73,7 +73,7 @@ const PickerGestureHandler: FunctionComponent<GestureProps> = (props) => {
   );
   return (
     <PanGestureHandler onGestureEvent={gestureHandler}>
-      <Animated.View style={[StyleSheet.absoluteFillObject, { backgroundColor: "rgba(255, 255, 255, 0,1)" }]} />
+      <Animated.View style={[StyleSheet.absoluteFillObject]} />
     </PanGestureHandler>
   )
 }

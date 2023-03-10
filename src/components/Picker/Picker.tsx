@@ -14,7 +14,7 @@ import PickerGestureHandler from "./PickerGestureHandler";
 import { ITEM_HEIGHT, VISIBLE_ITEMS } from "./PickerConstants";
 import { PickerProps } from './PickerTypes';
 
-const { width: WIDTH } = Dimensions.get("window");
+export let TEST = '';
 
 const styles = StyleSheet.create({
   appContainer: {
@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
   },
   // container needs to be centered so if we reduce visible items it is still centered
   pickerContainer: {
-    width: 0.5 * WIDTH,
     height: ITEM_HEIGHT * VISIBLE_ITEMS,
     overflow: "hidden",
   },
@@ -38,14 +37,6 @@ const styles = StyleSheet.create({
     height: ITEM_HEIGHT,
     justifyContent: "center",
   },
-  label: {
-    color: colors.midnightBlack,
-    fontSize: 15,
-    lineHeight: ITEM_HEIGHT,
-    textAlign: "center",
-    textAlignVertical: "center",
-  },
-
 })
 
 const Picker: FunctionComponent<PickerProps> = (props) => {
@@ -62,7 +53,7 @@ const Picker: FunctionComponent<PickerProps> = (props) => {
           const y = useDerivedValue(() =>
             interpolate(
               (translateY.value - ITEM_HEIGHT * 2) / - ITEM_HEIGHT,
-              [idx - 2, idx, idx + 2],
+              [idx - 1.5, idx, idx + 1.5],
               [-1, 0, 1],
               Extrapolate.CLAMP
             )
@@ -74,7 +65,16 @@ const Picker: FunctionComponent<PickerProps> = (props) => {
               { rotateX: 90 * y.value + "deg" },
               { scale: 1 - 0.1 * Math.abs(y.value), }
             ],
+            paddingLeft: 10,
+            paddingRight: 0,
+            opacity: 1 - Math.abs(y.value),
+            backgroundColor: colors.poisonGreen,
           }));
+
+          // should be synchron but has a delay?
+          if (y.value === 0) {
+            TEST = value.label;
+          }
 
           return (
             <Animated.View key={value.value} style={[styles.item, childViewStyle]}>
