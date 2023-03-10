@@ -19,8 +19,10 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView scrollEventThrottle={16} stickyHeaderIndices={[0]}>
-        <Header title={'Home'} leftIcon={{ icon: 'friends', navigateTo: 'Login' }} rightIcon={{ icon: 'friends', navigateTo: 'Login' }} />
+        <Header title={'Home'} leftIcon={{ icon: 'left-arrow', navigateTo: 'Login' }} rightIcon={{ icon: 'friends', navigateTo: 'Login' }} />
         <View >
+          <Text style={{ color: colors.midnightBlack }}>Gawdd damn</Text>
+          <Text style={{ color: colors.midnightBlack }}>Gawdd damn</Text>
           <Text style={{ color: colors.beige }}>Gawdd damn</Text>
           <Text style={{ color: colors.beige }}>Gawdd damn</Text>
           <Text style={{ color: colors.beige }}>Gawdd damn</Text>
@@ -34,9 +36,7 @@ const Home = () => {
           <Text style={{ color: colors.beige }}>Gawdd damn</Text>
           <Text style={{ color: colors.beige }}>Gawdd damn</Text>
           <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
-          <Text style={{ color: colors.beige }}>Gawdd damn</Text>
+          <Text style={{ color: colors.midnightBlack }}>Gawdd damn</Text>
           <Text style={{ color: colors.beige }}>Gawdd damn</Text>
           <Button
             title="Login"

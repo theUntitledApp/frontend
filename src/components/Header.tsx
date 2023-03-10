@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { RootStackRoute } from '../screens/rootStacks';
 
 import colors from './colors';
@@ -12,6 +12,7 @@ export type HeaderProps = {
   }
   rightIcon?: {
     icon: string,
+    rotate?: number,
     navigateTo: RootStackRoute,
   }
   title: string;

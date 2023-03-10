@@ -3,7 +3,7 @@ import { StyleProp, TextStyle, TouchableOpacity } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/core';
 
-import { friends } from './icons/IconSummary';
+import { friends, rightArrow, leftArrow } from './icons/IconSummary';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParams, RootStackRoute } from '../screens/rootStacks';
 
@@ -28,6 +28,8 @@ const Icon: FunctionComponent<IconProps> = (props) => {
 
   const icons: any = {
     'friends': friends,
+    'right-arrow': rightArrow,
+    'left-arrow': leftArrow,
   }
 
   const handlePress = () => {
@@ -40,7 +42,7 @@ const Icon: FunctionComponent<IconProps> = (props) => {
 
   const content = `
     <svg ${dimension} ${color} viewBox="0 0 53 53" xmlns="http://www.w3.org/2000/svg">
-     ${contentIcon} 
+       ${contentIcon} 
     </svg>
 `
   if (icon.navigateTo) {
