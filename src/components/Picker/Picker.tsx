@@ -14,8 +14,6 @@ import PickerGestureHandler from "./PickerGestureHandler";
 import { ITEM_HEIGHT, VISIBLE_ITEMS } from "./PickerConstants";
 import { PickerProps } from './PickerTypes';
 
-export let TEST = '';
-
 const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
@@ -68,12 +66,10 @@ const Picker: FunctionComponent<PickerProps> = (props) => {
             paddingLeft: 10,
             paddingRight: 0,
             opacity: 1 - Math.abs(y.value),
-            backgroundColor: colors.poisonGreen,
           }));
 
-          // should be synchron but has a delay?
           if (y.value === 0) {
-            props.onValueChange('Test');
+            props.onValueChange(value.label);
           }
 
           return (

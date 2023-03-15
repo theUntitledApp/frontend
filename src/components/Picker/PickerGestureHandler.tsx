@@ -17,7 +17,6 @@ const timingConfig = {
   easing: Easing.bezier(0.22, 1, 0.36, 1),
 }
 
-// finds closes point to the wanted SnapPoint
 const findClosestSnapPoint = (snapPointValue: number, velocity: number, points: number[]) => {
   'worklet';
   let maxValue: number = Infinity;

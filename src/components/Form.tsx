@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
   formContainer: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-evenly"
   }
 })
 
@@ -18,12 +19,10 @@ const Form: FunctionComponent = () => {
     setActiveDial(dial);
   }
 
-  // mockValues shall be replaced with an API or more detailed
-
   return (
     <View style={styles.formContainer}>
       <Picker values={dialValues} onValueChange={handleValueChange} />
-      <RegularText>{activeDial}</RegularText>
+      <RegularText>Hello {activeDial}</RegularText>
     </View>
   );
 }

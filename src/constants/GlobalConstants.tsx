@@ -7,11 +7,11 @@ export const dialValues = [
   },
   {
     value: 1,
-    label: '+49 DE',
+    label: '+45 FR',
   },
   {
     value: 2,
-    label: '+49 DE',
+    label: '+43 CH',
   }
 ]
 
