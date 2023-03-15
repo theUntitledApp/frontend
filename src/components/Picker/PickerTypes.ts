@@ -6,6 +6,7 @@ export type GestureProps = {
 }
 
 export type PickerProps = {
+  onValueChange: (value: string) => void,
   values: {
     value: number,
     label: string,

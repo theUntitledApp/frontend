@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Animated, {
   Extrapolate,
   interpolate,
@@ -73,7 +73,7 @@ const Picker: FunctionComponent<PickerProps> = (props) => {
 
           // should be synchron but has a delay?
           if (y.value === 0) {
-            TEST = value.label;
+            props.onValueChange('Test');
           }
 
           return (
