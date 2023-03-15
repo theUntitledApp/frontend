@@ -1,7 +1,10 @@
 import React, { FunctionComponent } from 'react';
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
+
+import { Icon } from './index';
 
 type CtaProps = {
+  external?: boolean,
 }
 
 const styles = StyleSheet.create({
@@ -9,17 +12,30 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     border: "1px solid #000",
     borderRadius: 4,
-    shadowColor: '#fff'
-
+    shadowColor: '#fff',
+    flexDirection: 'row',
   }
 })
 // Not sure if needed so leaving it empty and might remove later or we make it a wrapper
 // for Icons etc and give a function with it like navigate or event trigger 
 const Cta: FunctionComponent<CtaProps> = (props) => {
+  const iconSize = 19;
+  const iconProps = {
+    icon: 'external-arrow',
+    link: 'www.google.de',
+  }
+
   return (
-    <View></View>
+    <TouchableOpacity style={styles.button}>
+      {props.external && <Icon iconProps={iconProps} size={iconSize}></Icon>}
+    </TouchableOpacity >
   )
 }
+
+export default Cta;
+
+
+
 /*
 .button-50 {
   appearance: button;

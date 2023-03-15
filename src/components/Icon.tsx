@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { StyleProp, TextStyle, TouchableOpacity } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/core';
 
-import { friends, rightArrow, leftArrow } from './icons/IconSummary';
+import { friends, rightArrow, leftArrow, externalArrow } from './icons/IconSummary';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParams, RootStackRoute } from '../screens/rootStacks';
 
@@ -11,6 +11,7 @@ import { RootStackParams, RootStackRoute } from '../screens/rootStacks';
 export type IconProps = {
   iconProps: {
     icon: string;
+    link?: string;
     navigateTo?: RootStackRoute;
   }
   size: number;
@@ -21,6 +22,8 @@ export type IconProps = {
 
 
 const Icon: FunctionComponent<IconProps> = (props) => {
+  const [invalidLink, setInvalidLink] = useState(false)
+
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>();
   const dimension = `width="${props.size}" height="${props.size}"`;
   const color = `fill="${props.color ? props.color : 'none'}"`;
@@ -30,11 +33,16 @@ const Icon: FunctionComponent<IconProps> = (props) => {
     'friends': friends,
     'right-arrow': rightArrow,
     'left-arrow': leftArrow,
+    'external-arrow': externalArrow,
   }
 
   const handlePress = () => {
-    const route = icon.navigateTo !== undefined ? icon.navigateTo : 'Welcome';
-    navigation.navigate(route);
+
+    const externalRoute = icon.link !== undefined ? icon.link : setInvalidLink(true);
+    const internalRoute = icon.navigateTo !== undefined ? (invalidLink === false ? icon.navigateTo : 'Home') : 'Home';
+
+    // href to icon.link
+    invalidLink ? navigation.navigate(internalRoute) : navigation.navigate(internalRoute);
   }
 
   const iconExists = icons.hasOwnProperty(icon.icon);
@@ -45,7 +53,8 @@ const Icon: FunctionComponent<IconProps> = (props) => {
        ${contentIcon} 
     </svg>
 `
-  if (icon.navigateTo) {
+  // dirty solution TODO: Change
+  if (icon.navigateTo || icon.link) {
     return (
       <TouchableOpacity onPress={handlePress}>
         <SvgXml style={props.iconStyle} xml={content} />
