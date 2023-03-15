@@ -1,7 +1,8 @@
 import React, { FunctionComponent, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
-import { Picker } from './index';
+import { Picker, RegularText } from './index';
+import { dialValues } from '../constants/GlobalConstants';
 
 const styles = StyleSheet.create({
   formContainer: {
@@ -14,35 +15,15 @@ const Form: FunctionComponent = () => {
   const [activeDial, setActiveDial] = useState('DE');
 
   const handleValueChange = (dial: string) => {
-    setActiveDial(dial)
+    setActiveDial(dial);
   }
 
-  const mockValues = [
-    {
-      value: 0,
-      label: '+49'
-    },
-    {
-      value: 1,
-      label: '+2341324'
-    },
-    {
-      value: 2,
-      label: '+934'
-    },
-    {
-      value: 3,
-      label: '+234'
-    },
-    {
-      value: 4,
-      label: '+98'
-    },
-  ]
+  // mockValues shall be replaced with an API or more detailed
+
   return (
     <View style={styles.formContainer}>
-      <Picker values={mockValues} onValueChange={handleValueChange} />
-      <Text>{activeDial}</Text>
+      <Picker values={dialValues} onValueChange={handleValueChange} />
+      <RegularText>{activeDial}</RegularText>
     </View>
   );
 }
