@@ -14,16 +14,16 @@ const styles = StyleSheet.create({
 })
 
 const Form: FunctionComponent = () => {
-  const [activeDial, setActiveDial] = useState<TPickerValue>({label: 'DE'});
+  const [activeDial, setActiveDial] = useState<TPickerValue>({ value: 0, label: 'DE' });
 
-  const handleValueChange = (dial: string) => {
-    setActiveDial(dial);
+  const handleValueChange = (value: TPickerValue) => {
+    setActiveDial(value);
   }
 
   return (
     <View style={styles.formContainer}>
-      <Picker values={dialValues} onValueChange={() => handleValueChange()} value={activeDial} />
-      <RegularText>Hello {activeDial}</RegularText>
+      <Picker values={dialValues} onValueChange={handleValueChange} value={activeDial} />
+      <RegularText>Hello {activeDial.label}</RegularText>
     </View>
   );
 }

@@ -10,7 +10,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { ITEM_HEIGHT, DURATION } from './PickerConstants';
-import { GestureProps } from './PickerTypes';
+import { GestureProps, TPickerValue } from './PickerTypes';
 
 const timingConfig = {
   duration: DURATION,
@@ -34,7 +34,7 @@ const findClosestSnapPoint = (snapPointValue: number, velocity: number, points: 
   return closestsSnapPoint;
 }
 
-const usePanGestureHandler = (snapPoints: number[]) => {
+const usePanGestureHandler = (snapPoints: number[], asd: (value: TPickerValue) => void, asd2: TPickerValue) => {
   const offset = useSharedValue(-ITEM_HEIGHT);
   const position = useSharedValue(offset.value);
   const toValue = useSharedValue(0);
@@ -49,6 +49,7 @@ const usePanGestureHandler = (snapPoints: number[]) => {
     },
     onEnd: () => {
       position.value = withTiming(toValue.value, timingConfig);
+      asd(asd2)
     }
   });
 
@@ -59,7 +60,7 @@ const usePanGestureHandler = (snapPoints: number[]) => {
 const PickerGestureHandler: FunctionComponent<GestureProps> = (props) => {
   const { maxValue, pickerTranslateY } = props;
   const snapPoints = new Array(maxValue).fill(0).map((_, i) => i * -ITEM_HEIGHT);
-  const { position, gestureHandler } = usePanGestureHandler(snapPoints);
+  const { position, gestureHandler } = usePanGestureHandler(snapPoints, props.onValueChange, props.value);
 
   useAnimatedReaction(
     () => {

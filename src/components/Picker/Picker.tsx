@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import Animated, {
   Extrapolate,
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
 })
 
 const Picker: FunctionComponent<PickerProps> = (props) => {
+  const [activeValue, setActiveValue] = useState({ value: 0, label: 'DE' });
   const { values } = props;
   const translateY = useSharedValue(0);
   const viewStyle = useAnimatedStyle(() => ({
@@ -69,7 +70,7 @@ const Picker: FunctionComponent<PickerProps> = (props) => {
           }));
 
           if (y.value === 0) {
-            props.onValueChange(value.label);
+            setActiveValue(value);
           }
 
           return (
@@ -79,7 +80,7 @@ const Picker: FunctionComponent<PickerProps> = (props) => {
           );
         })}
       </Animated.View>
-      <PickerGestureHandler pickerTranslateY={translateY} maxValue={values.length} />
+      <PickerGestureHandler value={activeValue} onValueChange={props.onValueChange} pickerTranslateY={translateY} maxValue={values.length} />
     </View>
   )
 }
