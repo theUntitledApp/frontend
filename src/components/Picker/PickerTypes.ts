@@ -5,10 +5,10 @@ export type GestureProps = {
   maxValue: number,
 }
 
+export type TPickerValue = {value: number; label: string};
+
 export type PickerProps = {
   onValueChange: (value: string) => void,
-  values: {
-    value: number,
-    label: string,
-  }[],
+  value?: TPickerValue,
+  values: TPickerValue[]
 }

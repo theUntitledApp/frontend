@@ -1,6 +1,9 @@
 // replace with API 
+
+import { TPickerValue } from "../components/Picker/PickerTypes";
+
 // mockValues
-export const dialValues = [
+export const dialValues: TPickerValue[] = [
   {
     value: 0,
     label: '+49 DE',
