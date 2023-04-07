@@ -1,17 +1,26 @@
+import { useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
-import { TCamera, useSmarthoneCamera } from "../../components/UserCamera";
+import { TCamera, useSmarthoneCamera } from "../../components/Camera";
 
 const CameraScreen: React.FunctionComponent<{ camera: TCamera }> = ({ camera }) => {
+    const [mode, setMode] = useState<'camera' | 'preview'>('camera');
+    const [previewBase64, setPreviewBase64] = useState<string>();
 
-    if (!camera.permissionGranted)
-        return <Text>Please allow camera permission!</Text>;
+    useEffect(() => {
+        camera.imageTaken$.subscribe((imageBase64Encoded) => {
+            console.log("IMAGE ARRIVED", imageBase64Encoded)
+            setPreviewBase64(imageBase64Encoded);
+            setMode('preview');
+        })
+    }, []);
 
-    if (camera.previewBase64) {
-        return <View>
-            <Text>Du stinkst</Text>
-            <Image source={{ uri: camera.previewBase64 }}></Image>
-        </View>
+    if (mode == 'preview') {
+        console.log("HASDKLASDJLK")
+        return (<View>
+            <Image source={{uri: previewBase64}} style={{flex: 1}}></Image>
+        </View>)
     }
+
     return camera.render;
 }
 

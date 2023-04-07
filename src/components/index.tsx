@@ -11,7 +11,6 @@ import Header from './Header';
 import Tab from './Tab';
 import Picker from './Picker/Picker';
 import Form from './Form';
-import UserCamera from './UserCamera';
 
 // ICONS
 import Icon from './Icon';
@@ -26,5 +25,4 @@ export {
   Headline,
   Header,
   Tab,
-  UserCamera,
 }

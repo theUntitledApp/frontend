@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Camera, CameraType } from 'expo-camera';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { from, tap } from 'rxjs';
+import { Camera as ExpoCamera, CameraType } from 'expo-camera';
+import { Text, TouchableOpacity } from 'react-native';
+import { from, Observable, Subject, tap } from 'rxjs';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export interface TCamera {
-  permissionGranted: boolean;
-  previewBase64: string | undefined;
+  imageTaken$: Observable<string | undefined>;
   render: JSX.Element;
 }
 
 export function useSmarthoneCamera(): TCamera {
-  let camera: Camera;
+  let camera: ExpoCamera;
   const [permissionGranted, setPermissionGranted] = useState(false);
   const [cameraType, setCameraType] = useState(CameraType.back);
-  const [previewBase64, setPreviewBase64] = useState<string>();
+  const [imageTaken$] = useState(new Subject<string>());
 
   const _requestPermission$ = async () => {
-    const { status } = await Camera.requestCameraPermissionsAsync();
+    const { status } = await ExpoCamera.requestCameraPermissionsAsync();
     console.log(status);
     setPermissionGranted(status === 'granted');
   }
@@ -28,19 +27,17 @@ export function useSmarthoneCamera(): TCamera {
 
   const _takePhoto = () => {
     from(camera.takePictureAsync()).pipe(
-      tap(({ base64 }) => {
-        setPreviewBase64(base64);
+      tap((image) => {
+        console.log(image);
+        imageTaken$.next(image.uri);
       }),
     ).subscribe();
   }
 
   useEffect(() => { _requestPermission$() }, []);
 
-  return {
-    permissionGranted,
-    previewBase64,
-    render: (
-      <Camera
+  let render = (
+      <ExpoCamera
         style={{ flex: 1, height: '100%' }}
         type={cameraType}
         ref={(r) => { camera = r! }}
@@ -56,9 +53,19 @@ export function useSmarthoneCamera(): TCamera {
           <TouchableOpacity
             onPress={_takePhoto}
           >
+            <Text>
+            AUFNEHMEN
+</Text>
           </TouchableOpacity>
         </SafeAreaView>
-      </Camera>
-    )
+      </ExpoCamera>
+  )
+
+  if (!permissionGranted)
+    render = <Text>Please allow camera permission!</Text>;
+
+  return {
+    imageTaken$,
+    render
   }
 }
