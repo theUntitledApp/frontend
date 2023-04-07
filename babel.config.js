@@ -1,4 +1,4 @@
-module.exports = function(api) {
+module.exports = function (api) {
   api.cache(true);
   return {
     presets: [
@@ -7,8 +7,15 @@ module.exports = function(api) {
     ],
     plugins: [
       [
-        'react-native-reanimated/plugin'
-      ]
+        'react-native-reanimated/plugin',
+      ],
+      ["module-resolver", {
+        "root": ["./"],
+        "extensions": [".tsx", ".ts"],
+        "alias": {
+          "@components": "./src/components"
+        }
+      }]
     ]
   };
 };

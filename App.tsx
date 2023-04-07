@@ -7,7 +7,7 @@ import { useFonts } from 'expo-font';
 
 import { Welcome, Login, CameraScreen } from './src/screens/screenIndex';
 import { makeHomeScreen } from './src/screens/Home/Home';
-import { Camera, useSmartphoneCamera } from './src/components/Camera';
+import { Camera, useSmartphoneCamera } from '@components/Camera';
 
 const RootStack = createNativeStackNavigator<RootStackParams>();
 export interface Dependencies {

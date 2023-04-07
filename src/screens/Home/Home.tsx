@@ -1,12 +1,13 @@
-import { SafeAreaView, Button, StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { SafeAreaView, StyleSheet, View, ScrollView } from 'react-native';
 import React from 'react'
-import { Header, Icon } from '../../components/index';
 
 import colors from '../../components/colors'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParams } from '../rootStacks';
-import { PressableIcon } from '../../components/Icon';
+
+import Icon, { PressableIcon } from '@components/Icon';
+import Header from '@components/Header';
 
 const styles = StyleSheet.create({
   container: {
