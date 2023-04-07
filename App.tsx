@@ -5,17 +5,22 @@ import { RootStackParams } from './src/screens/rootStacks';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 
-import { Welcome, Login, Home, CameraScreen } from './src/screens/screenIndex';
+import { Welcome, Login, CameraScreen } from './src/screens/screenIndex';
 import { makeHomeScreen } from './src/screens/Home/Home';
-import { makeCameraScreen } from './src/screens/Camera/CameraScreen';
+import { Camera, useSmartphoneCamera } from './src/components/Camera';
 
 const RootStack = createNativeStackNavigator<RootStackParams>();
+export interface Dependencies {
+  camera: Camera;
+};
 
-export default function App() {
+export default function App({camera}: Dependencies) {
   let [fontsLoaded] = useFonts({
     "Lato-Bold": require("./src/assets/font/Lato-Bold.ttf"),
     "Lato-Regular": require("./src/assets/font/Lato-Regular.ttf"),
   });
+
+  camera ??= useSmartphoneCamera();
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -39,7 +44,7 @@ export default function App() {
         />
         <RootStack.Screen
           name="CameraScreen"
-          component={() => makeCameraScreen()}
+          component={(props: any) => <CameraScreen {...props} camera={camera}></CameraScreen>}
         />
         <RootStack.Screen name='Login' component={Login} />
       </RootStack.Navigator>

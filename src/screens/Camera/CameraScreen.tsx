@@ -1,23 +1,22 @@
 import { useEffect, useState } from "react";
-import { Image, Text, View } from "react-native";
-import { TCamera, useSmarthoneCamera } from "../../components/Camera";
+import { Image, View } from "react-native";
+import { Camera } from "../../components/Camera";
 
-const CameraScreen: React.FunctionComponent<{ camera: TCamera }> = ({ camera }) => {
+const CameraScreen: React.FunctionComponent<{ camera: Camera }> = ({ camera }) => {
     const [mode, setMode] = useState<'camera' | 'preview'>('camera');
-    const [previewBase64, setPreviewBase64] = useState<string>();
+    const [fileUrl, setFileUrl] = useState<string>();
 
     useEffect(() => {
-        camera.imageTaken$.subscribe((imageBase64Encoded) => {
-            console.log("IMAGE ARRIVED", imageBase64Encoded)
-            setPreviewBase64(imageBase64Encoded);
+        camera.imageTaken$.subscribe((fileUrl) => {
+            setFileUrl(fileUrl);
+            console.log(fileUrl);
             setMode('preview');
         })
     }, []);
 
     if (mode == 'preview') {
-        console.log("HASDKLASDJLK")
         return (<View>
-            <Image source={{uri: previewBase64}} style={{flex: 1}}></Image>
+            <Image source={{uri: fileUrl}} style={{width: 300, height: 300}}></Image>
         </View>)
     }
 
@@ -25,8 +24,3 @@ const CameraScreen: React.FunctionComponent<{ camera: TCamera }> = ({ camera }) 
 }
 
 export default CameraScreen;
-
-export function makeCameraScreen() {
-    const smartphoneCamera = useSmarthoneCamera();
-    return <CameraScreen camera={smartphoneCamera}></CameraScreen>
-}

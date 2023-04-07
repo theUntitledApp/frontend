@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Camera as ExpoCamera, CameraType } from 'expo-camera';
-import { Text, TouchableOpacity } from 'react-native';
+import { Button, Text, TouchableOpacity } from 'react-native';
 import { from, Observable, Subject, tap } from 'rxjs';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export interface TCamera {
+export interface Camera {
   imageTaken$: Observable<string | undefined>;
   render: JSX.Element;
 }
 
-export function useSmarthoneCamera(): TCamera {
+export function useSmartphoneCamera(): Camera {
   let camera: ExpoCamera;
   const [permissionGranted, setPermissionGranted] = useState(false);
   const [cameraType, setCameraType] = useState(CameraType.back);
@@ -37,28 +37,28 @@ export function useSmarthoneCamera(): TCamera {
   useEffect(() => { _requestPermission$() }, []);
 
   let render = (
-      <ExpoCamera
-        style={{ flex: 1, height: '100%' }}
-        type={cameraType}
-        ref={(r) => { camera = r! }}
-      >
-        <SafeAreaView>
-          <TouchableOpacity
-            onPress={_toggleCameraType}
-          >
-            <Text>
-              Switch Camera
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={_takePhoto}
-          >
-            <Text>
+    <ExpoCamera
+      style={{ flex: 1, height: '100%' }}
+      type={cameraType}
+      ref={(r) => { camera = r! }}
+    >
+      <SafeAreaView>
+        <TouchableOpacity
+          onPress={_toggleCameraType}
+        >
+          <Text>
+            Switch Camera
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={_takePhoto}
+        >
+          <Text>
             AUFNEHMEN
-</Text>
-          </TouchableOpacity>
-        </SafeAreaView>
-      </ExpoCamera>
+          </Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    </ExpoCamera>
   )
 
   if (!permissionGranted)
