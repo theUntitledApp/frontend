@@ -60,11 +60,11 @@ const Header: FunctionComponent<HeaderProps> = (props) => {
 
   return (
     <View style={styleArray}>
-      {props.leftIcon && <Icon size={iconSize} iconProps={props.leftIcon} color={iconColor} />}
+      {props.leftIcon && <Icon icon={'left-arrow'} size={iconSize} color={iconColor} />}
       <View style={styles.titleContainer}>
         <Headline level={'h2'}>{props.title}</Headline >
       </View>
-      {props.rightIcon && <Icon size={iconSize} iconProps={props.rightIcon} color={iconColor} />}
+      {props.rightIcon && <Icon size={iconSize} icon={'right-arrow'} color={iconColor} />}
     </View>
   )
 }

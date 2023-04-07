@@ -1,69 +1,73 @@
 import React, { FunctionComponent, useState } from 'react';
 import { StyleProp, TextStyle, TouchableOpacity } from 'react-native';
 import { SvgXml } from 'react-native-svg';
-import { useNavigation } from '@react-navigation/core';
+import colors from './colors';
+import { StyleSheet } from 'react-native';
 
 import { friends, rightArrow, leftArrow, externalArrow } from './icons/IconSummary';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParams, RootStackRoute } from '../screens/rootStacks';
 
+export const ICONS = {
+  'friends': friends,
+  'right-arrow': rightArrow,
+  'left-arrow': leftArrow,
+  'external-arrow': externalArrow,
+};
 
-export type IconProps = {
-  iconProps: {
-    icon: string;
-    link?: string;
-    navigateTo?: RootStackRoute;
-  }
-  size: number;
+export type Icon = keyof typeof ICONS;
+
+export interface IconProps {
+  icon: keyof typeof ICONS;
+  size?: number;
   color?: string;
   iconStyle?: StyleProp<TextStyle>;
 }
 
-
+class DefaultIconProps implements IconProps {
+  icon: Icon = 'friends';
+  size: number = 19;
+  color: string = colors.midnightBlack;
+  iconStyle: StyleProp<TextStyle> = {};
+}
 
 const Icon: FunctionComponent<IconProps> = (props) => {
-  const [invalidLink, setInvalidLink] = useState(false)
+  const mergedProps = { ...new DefaultIconProps(), ...props };
 
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>();
-  const dimension = `width="${props.size}" height="${props.size}"`;
-  const color = `fill="${props.color ? props.color : 'none'}"`;
-  const icon = props.iconProps;
+  const icon = ICONS[props.icon];
 
-  const icons: any = {
-    'friends': friends,
-    'right-arrow': rightArrow,
-    'left-arrow': leftArrow,
-    'external-arrow': externalArrow,
-  }
-
-  const handlePress = () => {
-
-    const externalRoute = icon.link !== undefined ? icon.link : setInvalidLink(true);
-    const internalRoute = icon.navigateTo !== undefined ? (invalidLink === false ? icon.navigateTo : 'Home') : 'Home';
-
-    // href to icon.link
-    invalidLink ? navigation.navigate(internalRoute) : navigation.navigate(internalRoute);
-  }
-
-  const iconExists = icons.hasOwnProperty(icon.icon);
-  const contentIcon = iconExists ? icons[icon.icon] : icons['friends'];
+  const dimension = `width="${mergedProps.size}" height="${mergedProps.size}"`;
+  const color = `fill="${mergedProps.color}"`;
 
   const content = `
     <svg ${dimension} ${color} viewBox="0 0 53 53" xmlns="http://www.w3.org/2000/svg">
-       ${contentIcon} 
-    </svg>
-`
-  // dirty solution TODO: Change
-  if (icon.navigateTo || icon.link) {
-    return (
-      <TouchableOpacity onPress={handlePress}>
-        <SvgXml style={props.iconStyle} xml={content} />
-      </TouchableOpacity>
-    )
-  }
+       ${icon} 
+    </svg>`
   return (
     <SvgXml style={props.iconStyle} xml={content} />
   )
+}
+
+const Pressable: FunctionComponent<{children: any, onPress: () => void }> = ({children, onPress}) => {
+  const styles = StyleSheet.create({
+    button: {
+      backgroundColor: "#000",
+      border: "1px solid #000",
+      borderRadius: 4,
+      shadowColor: '#fff',
+      flexDirection: 'row',
+    }
+  })
+  return <TouchableOpacity style={styles.button} onPress={onPress}>
+    {children}
+  </TouchableOpacity >
+}
+
+const PressableIcon: FunctionComponent<IconProps & { onPress: () => void }> = (props) => {
+
+  const { onPress, ...rest } = props;
+
+  return <Pressable onPress={onPress}>
+    <Icon {...rest}></Icon>
+  </Pressable>;
 }
 
 export default Icon;
