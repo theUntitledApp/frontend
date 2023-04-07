@@ -8,10 +8,6 @@ export interface SplitViewProps {
     prompt: string;
 };
 
-export interface Reaction {
-    icon: string;
-}
-
 export class SplitViewWithReactionProps implements SplitViewProps {
     topImage: Image = {} as any;
     bottomImage: Image = {} as any;
@@ -45,9 +41,5 @@ export function SplitView({ prompt, topImage, bottomImage }: SplitViewProps) {
 }
 
 export function SplitViewWithReaction(props: SplitViewWithReactionProps) {
-    return (
-        <>
-            <SplitView {...props}></SplitView>
-        </>
-    );
+    return (<SplitView {...props}></SplitView>);
 }
