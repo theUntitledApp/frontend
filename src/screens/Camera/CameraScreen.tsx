@@ -1,41 +1,23 @@
-import { Camera, CameraType } from 'expo-camera';
-import { useState } from 'react';
-import { SafeAreaView, TouchableOpacity } from 'react-native';
+import { Image, Text, View } from "react-native";
+import { TCamera, useSmarthoneCamera } from "../../components/UserCamera";
 
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParams } from '../rootStacks';
-import { Icon } from '../../components/index';
-import colors from '../../components/colors';
+const CameraScreen: React.FunctionComponent<{ camera: TCamera }> = ({ camera }) => {
 
-const CameraScreen = () => {
-  const [type, setType] = useState(CameraType.back);
-  const [permission, requestPermission] = Camera.useCameraPermissions();
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>();
+    if (!camera.permissionGranted)
+        return <Text>Please allow camera permission!</Text>;
 
-  const iconSize = 19;
-  const iconColor = colors.midnightBlack;
-  const iconProps = {
-    icon: 'friends',
-  }
-
-  if (!permission || !permission.granted) {
-    navigation.navigate("Welcome");
-  }
-
-  const toggleCameraType = () => {
-    type === CameraType.back ? setType(CameraType.front) : setType(CameraType.back);
-  }
-
-  return (
-    <SafeAreaView>
-      <Camera type={type}>
-        <TouchableOpacity onPress={toggleCameraType}>
-          <Icon size={iconSize} iconProps={iconProps} color={iconColor} />
-        </TouchableOpacity>
-      </Camera>
-    </SafeAreaView>
-  )
+    if (camera.previewBase64) {
+        return <View>
+            <Text>Du stinkst</Text>
+            <Image source={{ uri: camera.previewBase64 }}></Image>
+        </View>
+    }
+    return camera.render;
 }
 
 export default CameraScreen;
+
+export function makeCameraScreen() {
+    const smartphoneCamera = useSmarthoneCamera();
+    return <CameraScreen camera={smartphoneCamera}></CameraScreen>
+}

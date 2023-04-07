@@ -1,25 +1,14 @@
 import React, { FunctionComponent } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { RootStackRoute } from '../screens/rootStacks';
 
-import colors from './colors';
-import { Icon, Headline } from './index';
+import Headline from './Headline';
+import { IconProps } from './Icon';
 
 export type HeaderProps = {
-  leftIcon?: {
-    icon: string,
-    navigateTo: RootStackRoute,
-  }
-  rightIcon?: {
-    icon: string,
-    rotate?: number,
-    navigateTo: RootStackRoute,
-  }
+  leftIcon?: JSX.Element;
+  rightIcon?: JSX.Element; 
   title: string;
 }
-
-
-//TODO Center of Text is not 100% Accurate look into it
 
 const styles = StyleSheet.create({
   headerContainer: {
@@ -45,26 +34,15 @@ const styles = StyleSheet.create({
 })
 
 const Header: FunctionComponent<HeaderProps> = (props) => {
-  const iconSize = 19;
-  const iconColor = colors.midnightBlack;
-  const hasLeftIcon = !!props.leftIcon;
-  const hasRightIcon = !!props.rightIcon;
-  const hasIcons = hasLeftIcon || hasRightIcon;
-
-  const styleArray = [
-    styles.headerContainer,
-    !hasIcons && styles.headerNoIcons,
-    hasLeftIcon && styles.headerWithLeftIcon,
-    hasRightIcon && styles.headerWithRightIcon,
-  ]
+  const styleArray = [ styles.headerContainer, ];
 
   return (
     <View style={styleArray}>
-      {props.leftIcon && <Icon icon={'left-arrow'} size={iconSize} color={iconColor} />}
+      <>{props.leftIcon}</>
       <View style={styles.titleContainer}>
         <Headline level={'h2'}>{props.title}</Headline >
       </View>
-      {props.rightIcon && <Icon size={iconSize} icon={'right-arrow'} color={iconColor} />}
+      <>{props.rightIcon}</>
     </View>
   )
 }

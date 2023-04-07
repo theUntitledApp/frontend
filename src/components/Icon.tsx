@@ -49,7 +49,6 @@ const Icon: FunctionComponent<IconProps> = (props) => {
 const Pressable: FunctionComponent<{children: any, onPress: () => void }> = ({children, onPress}) => {
   const styles = StyleSheet.create({
     button: {
-      backgroundColor: "#000",
       border: "1px solid #000",
       borderRadius: 4,
       shadowColor: '#fff',
@@ -61,7 +60,7 @@ const Pressable: FunctionComponent<{children: any, onPress: () => void }> = ({ch
   </TouchableOpacity >
 }
 
-const PressableIcon: FunctionComponent<IconProps & { onPress: () => void }> = (props) => {
+export const PressableIcon: FunctionComponent<IconProps & { onPress: () => void }> = (props) => {
 
   const { onPress, ...rest } = props;
 
