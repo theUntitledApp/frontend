@@ -1,0 +1,21 @@
+name: "Test"
+on:
+  - push
+  - release
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v2
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: yarn
+      - name: Npm install
+        run: npm i
+      - name: Test
+        run: npm run test
