@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Headline from './Headline';
-import { IconProps } from './Icon';
 
 export type HeaderProps = {
   leftIcon?: JSX.Element;

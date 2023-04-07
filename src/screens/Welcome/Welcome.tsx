@@ -1,4 +1,4 @@
-import { SafeAreaView, Button, StyleSheet, Text, View, ScrollView } from 'react-native';
+import { Button, StyleSheet, Text, View, ScrollView } from 'react-native';
 import React from 'react'
 import { Header, Tab, Form } from '../../components/index';
 
@@ -6,6 +6,7 @@ import colors from '../../components/colors'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParams } from '../rootStacks';
+import { CustomSafeAreaView } from '@components/SafeAreaView';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,7 +43,7 @@ const tabs = [
 const Welcome = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>();
   return (
-    <SafeAreaView style={styles.container}>
+    <CustomSafeAreaView style={styles.container}>
       <Header title={"Welcome"} />
       <View style={styles.content}>
         <Text style={{ color: colors.midnightBlack }} onPress={() => navigation.navigate('Login')}>Hello chicken wing</Text>
@@ -54,7 +55,7 @@ const Welcome = () => {
         />
       </View>
       <Tab tabs={tabs} />
-    </SafeAreaView >
+    </CustomSafeAreaView >
   )
 }
 

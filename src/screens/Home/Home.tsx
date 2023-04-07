@@ -1,12 +1,14 @@
-import { SafeAreaView, Button, StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import React from 'react'
-import { Header, Icon } from '../../components/index';
 
 import colors from '../../components/colors'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParams } from '../rootStacks';
-import { PressableIcon } from '../../components/Icon';
+
+import Header from '@components/Header';
+import Icon, { PressableIcon } from '@components/Icon';
+import { CustomSafeAreaView } from '@components/SafeAreaView';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,13 +30,13 @@ const Home = ({ navigation }: HomeProps) => {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <CustomSafeAreaView style={styles.container}>
       <ScrollView scrollEventThrottle={16} stickyHeaderIndices={[0]}>
         <Header title={'Home'} leftIcon={leftIcon} rightIcon={rightIcon} />
         <View style={{ flex: 1, flexGrow: 20, position: 'relative' }}>
         </View>
       </ScrollView>
-    </SafeAreaView >
+    </CustomSafeAreaView >
   )
 }
 

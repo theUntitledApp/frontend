@@ -8,8 +8,6 @@ export type HeadlineProps = {
   children: ReactNode;
 }
 
-
-
 const styles = StyleSheet.create({
   basicDisplay: {
     color: colors.midnightBlack,

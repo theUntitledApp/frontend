@@ -1,10 +1,10 @@
-import React, { FunctionComponent, useState } from 'react';
-import { StyleProp, TextStyle, TouchableOpacity } from 'react-native';
+import React, { FunctionComponent } from 'react';
+import { StyleProp, TextStyle } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import colors from './colors';
-import { StyleSheet } from 'react-native';
 
 import { friends, rightArrow, leftArrow, externalArrow, cameraButton } from './icons/IconSummary';
+import { Pressable } from './Pressable';
 
 export const ICONS = {
   'friends': friends,
@@ -45,20 +45,6 @@ const Icon: FunctionComponent<IconProps> = (props) => {
   return (
     <SvgXml style={props.iconStyle} xml={content} />
   )
-}
-
-const Pressable: FunctionComponent<{ children: any, onPress: () => void }> = ({ children, onPress }) => {
-  const styles = StyleSheet.create({
-    button: {
-      border: "1px solid #000",
-      borderRadius: 4,
-      shadowColor: '#fff',
-      flexDirection: 'row',
-    }
-  })
-  return <TouchableOpacity style={styles.button} onPress={onPress}>
-    {children}
-  </TouchableOpacity >
 }
 
 export const PressableIcon: FunctionComponent<IconProps & { onPress: () => void }> = (props) => {

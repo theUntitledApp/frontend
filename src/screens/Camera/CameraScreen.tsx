@@ -9,7 +9,6 @@ const CameraScreen: React.FunctionComponent<{ camera: Camera }> = ({ camera }) =
     useEffect(() => {
         camera.imageTaken$.subscribe((fileUrl) => {
             setFileUrl(fileUrl);
-            console.log(fileUrl);
             setMode('preview');
         })
     }, []);

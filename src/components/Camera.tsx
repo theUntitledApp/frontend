@@ -3,6 +3,7 @@ import { Camera as ExpoCamera, CameraType } from 'expo-camera';
 import { Text, TouchableOpacity, SafeAreaView, StyleSheet, Dimensions, View } from 'react-native';
 import { from, Observable, Subject, tap } from 'rxjs';
 import { Icon } from './index';
+import { CustomSafeAreaView } from './SafeAreaView';
 
 const screenheight = Dimensions.get('screen').height;
 const borderheight = Math.ceil((screenheight * 0.4) / 2);
@@ -67,7 +68,7 @@ export function useSmartphoneCamera(): Camera {
       type={cameraType}
       ref={(r) => { camera = r! }}
     >
-      <View style={styles.iconContainer}>
+      <CustomSafeAreaView style={styles.iconContainer}>
         <TouchableOpacity
           onPress={_toggleCameraType}
           style={styles.icons}
@@ -87,7 +88,7 @@ export function useSmartphoneCamera(): Camera {
         >
           <Icon icon='left-arrow' size={40} color={"white"} />
         </TouchableOpacity>
-      </View>
+      </CustomSafeAreaView>
       <View style={styles.container}>
 
       </View>
