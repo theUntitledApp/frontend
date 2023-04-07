@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react"
 import { StyleSheet, TouchableOpacity } from "react-native"
 
-const Pressable: FunctionComponent<{children: any, onPress: () => void }> = ({children, onPress}) => {
+export const Pressable: FunctionComponent<{children: any, onPress: () => void }> = ({children, onPress}) => {
   const styles = StyleSheet.create({
     button: {
       border: "1px solid #000",

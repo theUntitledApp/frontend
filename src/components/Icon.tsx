@@ -1,9 +1,10 @@
 import React, { FunctionComponent } from 'react';
-import { Pressable, StyleProp, TextStyle } from 'react-native';
+import { StyleProp, TextStyle } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import colors from './colors';
 
 import { friends, rightArrow, leftArrow, externalArrow } from './icons/IconSummary';
+import { Pressable } from './Pressable';
 
 export const ICONS = {
   'friends': friends,
