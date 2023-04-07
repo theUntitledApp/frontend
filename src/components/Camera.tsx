@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Camera as ExpoCamera, CameraType } from 'expo-camera';
-import { Button, Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { from, Observable, Subject, tap } from 'rxjs';
 import { SafeAreaView } from 'react-native-safe-area-context';
 

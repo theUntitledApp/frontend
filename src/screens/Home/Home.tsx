@@ -6,8 +6,8 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParams } from '../rootStacks';
 
-import Icon, { PressableIcon } from '@components/Icon';
 import Header from '@components/Header';
+import Icon, { PressableIcon } from '@components/Icon';
 
 const styles = StyleSheet.create({
   container: {
