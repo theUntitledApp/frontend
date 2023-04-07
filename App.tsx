@@ -5,7 +5,7 @@ import { RootStackParams } from './src/screens/rootStacks';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 
-import { Welcome, Login, Home } from './src/screens/screenIndex';
+import { Welcome, Login, Home, CameraScreen } from './src/screens/screenIndex';
 
 const RootStack = createNativeStackNavigator<RootStackParams>();
 
@@ -34,6 +34,10 @@ export default function App() {
         <RootStack.Screen
           name="Welcome"
           component={Welcome}
+        />
+        <RootStack.Screen
+          name="CameraScreen"
+          component={CameraScreen}
         />
         <RootStack.Screen name='Login' component={Login} />
       </RootStack.Navigator>
