@@ -4,13 +4,14 @@ import { SvgXml } from 'react-native-svg';
 import colors from './colors';
 import { StyleSheet } from 'react-native';
 
-import { friends, rightArrow, leftArrow, externalArrow } from './icons/IconSummary';
+import { friends, rightArrow, leftArrow, externalArrow, cameraButton } from './icons/IconSummary';
 
 export const ICONS = {
   'friends': friends,
   'right-arrow': rightArrow,
   'left-arrow': leftArrow,
   'external-arrow': externalArrow,
+  'camera-button': cameraButton,
 };
 
 export type Icon = keyof typeof ICONS;
@@ -46,7 +47,7 @@ const Icon: FunctionComponent<IconProps> = (props) => {
   )
 }
 
-const Pressable: FunctionComponent<{children: any, onPress: () => void }> = ({children, onPress}) => {
+const Pressable: FunctionComponent<{ children: any, onPress: () => void }> = ({ children, onPress }) => {
   const styles = StyleSheet.create({
     button: {
       border: "1px solid #000",
