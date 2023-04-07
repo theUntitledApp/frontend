@@ -1,5 +1,6 @@
+import { CustomSafeAreaView } from "@components/SafeAreaView";
 import { useState } from "react";
-import { Button, SafeAreaView } from "react-native";
+import { Button } from "react-native";
 import { Subject } from "rxjs";
 import { Camera } from "../Camera";
 
@@ -12,8 +13,8 @@ export function useDummyCamera(): Camera {
 
     return {
         imageTaken$,
-        render: <SafeAreaView>
+        render: <CustomSafeAreaView>
             <Button title="Aufnehmen" onPress={_takePhoto}></Button>
-        </SafeAreaView>
+        </CustomSafeAreaView>
     };
 }

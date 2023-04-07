@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Camera as ExpoCamera, CameraType } from 'expo-camera';
 import { Text, TouchableOpacity } from 'react-native';
 import { from, Observable, Subject, tap } from 'rxjs';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { CustomSafeAreaView } from './SafeAreaView';
 
 export interface Camera {
   imageTaken$: Observable<string | undefined>;
@@ -42,7 +42,7 @@ export function useSmartphoneCamera(): Camera {
       type={cameraType}
       ref={(r) => { camera = r! }}
     >
-      <SafeAreaView>
+      <CustomSafeAreaView>
         <TouchableOpacity
           onPress={_toggleCameraType}
         >
@@ -57,7 +57,7 @@ export function useSmartphoneCamera(): Camera {
             AUFNEHMEN
           </Text>
         </TouchableOpacity>
-      </SafeAreaView>
+      </CustomSafeAreaView>
     </ExpoCamera>
   )
 

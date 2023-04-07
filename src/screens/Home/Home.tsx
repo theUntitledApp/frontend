@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import React from 'react'
 
 import colors from '../../components/colors'
@@ -8,6 +8,7 @@ import { RootStackParams } from '../rootStacks';
 
 import Header from '@components/Header';
 import Icon, { PressableIcon } from '@components/Icon';
+import { CustomSafeAreaView } from '@components/SafeAreaView';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,13 +30,13 @@ const Home = ({ navigation }: HomeProps) => {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <CustomSafeAreaView style={styles.container}>
       <ScrollView scrollEventThrottle={16} stickyHeaderIndices={[0]}>
         <Header title={'Home'} leftIcon={leftIcon} rightIcon={rightIcon} />
         <View style={{ flex: 1, flexGrow: 20, position: 'relative' }}>
         </View>
       </ScrollView>
-    </SafeAreaView >
+    </CustomSafeAreaView >
   )
 }
 
