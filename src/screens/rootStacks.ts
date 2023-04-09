@@ -3,6 +3,7 @@ const rootStackParamList = {
   Home: undefined,
   Login: undefined,
   CameraScreen: undefined,
+  PermissionsScreen: undefined,
 }
 
 type RootStackParams = typeof rootStackParamList;
