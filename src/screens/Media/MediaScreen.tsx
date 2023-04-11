@@ -1,39 +1,50 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParams } from '../rootStacks';
-import { Video } from 'expo-av';
-import { Image, View } from 'react-native'
-import { useState } from 'react';
+import { Video, VideoProps } from 'expo-av';
+import { Image, } from 'react-native'
+import { useState, useEffect } from 'react';
+import { useCameraScreen } from '../Camera/CameraScreen';
+
+const MediaScreen: React.FunctionComponent = () => {
+  const [mode, setMode] = useState<'camera' | 'preview-video' | 'preview-photo'>('camera');
+  const [fileUrl, setFileUrl] = useState<string>();
+  const [video, setVideo] = useState<VideoProps>();
+
+  let camera = useCameraScreen();
 
 
-const MediaScreen = ({ navigation, route }: NativeStackScreenProps<RootStackParams, 'MediaScreen'>) => {
-  const { media, type } = route.params
-  const [pause, setPause] = useState(true);
-  console.log(media);
+  useEffect(() => {
+    camera.imageTaken$?.subscribe((fileUrl) => {
+      setFileUrl(fileUrl);
+      setMode('preview-photo');
+    })
 
-  if (type === 'video' && media !== null) {
-    return (
-      <Video
-        source={media.source}
-        rate={1.0}
-        volume={1.0}
-        isMuted={false}
-        resizeMode="cover"
-        shouldPlay={true}
-        isLooping={true}
-        onPress={setPause(!pause)}
-        style={{ flex: 1, width: '100%' }}
-      />
-    )
+    camera.videoTaken$?.subscribe((video) => {
+      setVideo(video);
+      setMode('preview-video')
+    })
+  }, [])
+
+  if (mode == 'preview-photo') {
+    return <Image
+      source={{ uri: fileUrl }}
+      style={{ flex: 1, width: '100%' }}
+    />
   }
-  if (type === 'photo') {
-    return (
-      <Image
-        source={media.source}
-        style={{ flex: 1, width: '100%' }}
-      />
-    )
+
+  if (mode == 'preview-video') {
+    return <Video
+      source={video.source}
+      rate={1.0}
+      volume={1.0}
+      isMuted={false}
+      resizeMode="cover"
+      shouldPlay={true}
+      isLooping={false}
+      style={{ flex: 1, width: '100%' }}
+    />
   }
-  return (<View />)
+
+  return camera.render;
+
 }
 
 export default MediaScreen;

@@ -1,27 +1,27 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { View, Image, Text, TouchableOpacity, ImageProps, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
-import { CameraCapturedPicture } from 'expo-camera/build/Camera.types';
-import { Video, VideoProps } from 'expo-av';
-import { PinchGestureHandler, PinchGestureHandlerGestureEvent, TapGestureHandler } from 'react-native-gesture-handler';
-import Reanimated, { Extrapolate, interpolate, useAnimatedGestureHandler, useAnimatedProps, useSharedValue } from 'react-native-reanimated';
+import { VideoProps } from 'expo-av';
+import { PinchGestureHandler, TapGestureHandler } from 'react-native-gesture-handler';
+import Reanimated from 'react-native-reanimated';
+import { Observable, Subject, from, tap, } from 'rxjs';
 
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParams } from '../rootStacks';
 
-type CameraScreenProps = {
-  navigation: NativeStackNavigationProp<RootStackParams>;
+export interface CameraInterface {
+  imageTaken$?: Observable<string | undefined>;
+  videoTaken$?: Observable<VideoProps | undefined>;
+  render: JSX.Element;
 }
 
-const CameraScreen = ({ navigation }: CameraScreenProps) => {
+export function useCameraScreen(): CameraInterface {
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
   const [hasMicrophonePermission, setHasMicrophonePermission] = useState<boolean | null>(null);
   const [cameraRef, setCameraRef] = useState<Camera | null>(null);
   const [type, setType] = useState<CameraType>(CameraType.back);
   const [recording, setRecording] = useState<boolean>(false);
-  const [video, setVideo] = useState<VideoProps | null>(null);
-  const [photo, setPhoto] = useState<ImageProps | null>(null);
   const [zoom, setZoom] = useState(0);
+  const [imageTaken$] = useState(new Subject<string>());
+  const [videoTaken$] = useState(new Subject<VideoProps>());
 
   useEffect(() => {
     (async () => {
@@ -49,13 +49,11 @@ const CameraScreen = ({ navigation }: CameraScreenProps) => {
 
   const takePicture = async () => {
     if (cameraRef && !recording) {
-      const image: CameraCapturedPicture = await cameraRef.takePictureAsync();
-      const source = { uri: image.uri };
-      setPhoto({ source });
-      if (photo) {
-
-        mediaCaptured(photo, 'photo')
-      }
+      from(cameraRef.takePictureAsync()).pipe(
+        tap((image) => {
+          imageTaken$.next(image.uri);
+        }),
+      ).subscribe();
     }
   };
 
@@ -63,9 +61,12 @@ const CameraScreen = ({ navigation }: CameraScreenProps) => {
     if (cameraRef) {
       try {
         setRecording(true);
-        const videoData = await cameraRef.recordAsync();
-        const source = { uri: videoData.uri };
-        setVideo({ source });
+        from(cameraRef.recordAsync()).pipe(
+          tap((source) => {
+            videoTaken$.next({ source });
+          }),
+        ).subscribe();
+
       } catch (error) {
         console.error(error);
       }
@@ -76,21 +77,18 @@ const CameraScreen = ({ navigation }: CameraScreenProps) => {
     if (cameraRef) {
       setRecording(false);
       cameraRef.stopRecording();
-      mediaCaptured(video, 'video');
     }
   };
 
-  const mediaCaptured = (media: VideoProps | ImageProps, type: 'photo' | 'video') => {
-    navigation.navigate("MediaScreen", { media: media, type: type })
-  }
+  let render;
 
   if (hasCameraPermission === null || hasMicrophonePermission === null) {
-    return <View />;
+    render = <View />;
   }
   if (hasCameraPermission === false || hasMicrophonePermission === false) {
-    return <Text>No access to camera</Text>;
+    render = <Text>No access to camera</Text>;
   }
-  return (
+  render = (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
         <PinchGestureHandler onGestureEvent={(event) => onPinchHandler(event)} >
@@ -134,6 +132,10 @@ const CameraScreen = ({ navigation }: CameraScreenProps) => {
       </View>
     </View>
   );
+  return {
+    imageTaken$,
+    videoTaken$,
+    render
+  }
 };
 
-export default CameraScreen;

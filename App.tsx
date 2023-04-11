@@ -5,7 +5,7 @@ import { RootStackParams } from './src/screens/rootStacks';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 
-import { Welcome, Login, CameraScreen, MediaScreen } from './src/screens/screenIndex';
+import { Welcome, Login, MediaScreen } from './src/screens/screenIndex';
 import { makeHomeScreen } from './src/screens/Home/Home';
 
 const RootStack = createNativeStackNavigator<RootStackParams>();
@@ -24,7 +24,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <RootStack.Navigator
-        initialRouteName="Welcome"
+        initialRouteName="MediaScreen"
         screenOptions={{
           headerShown: false
         }}
@@ -36,10 +36,6 @@ export default function App() {
         <RootStack.Screen
           name="Welcome"
           component={Welcome}
-        />
-        <RootStack.Screen
-          name="CameraScreen"
-          component={CameraScreen}
         />
         <RootStack.Screen
           name="MediaScreen"

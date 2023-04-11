@@ -25,7 +25,7 @@ const Home = ({ navigation }: HomeProps) => {
 
   const leftIcon = <Icon icon='left-arrow'></Icon>;
   const rightIcon = (
-    <PressableIcon onPress={() => { navigation.navigate('CameraScreen') }}
+    <PressableIcon onPress={() => { navigation.navigate('MediaScreen') }}
       icon='friends'></PressableIcon>
   );
 
