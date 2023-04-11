@@ -1,27 +1,61 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { View, Image, Text, TouchableOpacity, ImageProps, StyleSheet } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
 import { CameraCapturedPicture } from 'expo-camera/build/Camera.types';
 import { Video, VideoProps } from 'expo-av';
+import { PinchGestureHandler, PinchGestureHandlerGestureEvent, TapGestureHandler } from 'react-native-gesture-handler';
+import Reanimated, { Extrapolate, interpolate, useAnimatedGestureHandler, useAnimatedProps, useSharedValue } from 'react-native-reanimated';
 
-const CameraScreen: React.FC = () => {
-  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParams } from '../rootStacks';
+
+type CameraScreenProps = {
+  navigation: NativeStackNavigationProp<RootStackParams>;
+}
+
+const CameraScreen = ({ navigation }: CameraScreenProps) => {
+  const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
+  const [hasMicrophonePermission, setHasMicrophonePermission] = useState<boolean | null>(null);
   const [cameraRef, setCameraRef] = useState<Camera | null>(null);
   const [type, setType] = useState<CameraType>(CameraType.back);
   const [recording, setRecording] = useState<boolean>(false);
   const [video, setVideo] = useState<VideoProps | null>(null);
+  const [photo, setPhoto] = useState<ImageProps | null>(null);
+  const [zoom, setZoom] = useState(0);
 
   useEffect(() => {
     (async () => {
-      const { status } = await Camera.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
+      const cameraStatus = await Camera.requestCameraPermissionsAsync();
+      setHasCameraPermission(cameraStatus.status === 'granted');
+
+      const microphoneStatus = await Camera.requestMicrophonePermissionsAsync();
+      setHasMicrophonePermission(microphoneStatus.status === 'granted');
     })();
   }, []);
 
+  const toggleCamera = () => {
+    setType(type === CameraType.back ? CameraType.front : CameraType.back);
+  }
+
+  const onDoubleTap = useCallback(() => {
+    toggleCamera();
+  }, [toggleCamera])
+
+  const onPinchHandler = (event: any) => {
+    const zoomValue = event.nativeEvent.scale - 1;
+    const newZoom = Math.max(0, Math.min((zoom + zoomValue) * 0.05, 1));
+    setZoom(newZoom);
+  }
+
   const takePicture = async () => {
-    if (cameraRef) {
-      const photo: CameraCapturedPicture = await cameraRef.takePictureAsync();
-      console.log(photo);
+    if (cameraRef && !recording) {
+      const image: CameraCapturedPicture = await cameraRef.takePictureAsync();
+      const source = { uri: image.uri };
+      setPhoto({ source });
+      if (photo) {
+
+        mediaCaptured(photo, 'photo')
+      }
     }
   };
 
@@ -42,68 +76,62 @@ const CameraScreen: React.FC = () => {
     if (cameraRef) {
       setRecording(false);
       cameraRef.stopRecording();
+      mediaCaptured(video, 'video');
     }
   };
 
-  if (hasPermission === null) {
+  const mediaCaptured = (media: VideoProps | ImageProps, type: 'photo' | 'video') => {
+    navigation.navigate("MediaScreen", { media: media, type: type })
+  }
+
+  if (hasCameraPermission === null || hasMicrophonePermission === null) {
     return <View />;
   }
-  if (hasPermission === false) {
+  if (hasCameraPermission === false || hasMicrophonePermission === false) {
     return <Text>No access to camera</Text>;
   }
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
-        <Camera style={{ flex: 1 }} type={type} ref={setCameraRef}>
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: 'transparent',
-              flexDirection: 'row',
-            }}>
-            <TouchableOpacity
-              style={{
-                flex: 0.1,
-                alignSelf: 'flex-end',
-                alignItems: 'center',
-              }}
-              onPress={() => {
-                setType(
-                  type === CameraType.back
-                    ? CameraType.front
-                    : CameraType.back
-                );
-              }}>
-              <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
-                Flip
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                flex: 0.1,
-                alignSelf: 'flex-end',
-                alignItems: 'center',
-              }}
-              onPress={recording ? stopRecording : startRecording}>
-              <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
-                {recording ? 'Stop' : 'Record'}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </Camera>
+        <PinchGestureHandler onGestureEvent={(event) => onPinchHandler(event)} >
+          <Reanimated.View style={StyleSheet.absoluteFill}>
+            <TapGestureHandler onEnded={onDoubleTap} numberOfTaps={2}>
+              <Camera style={{ flex: 1 }} type={type} ref={setCameraRef} zoom={zoom}>
+                <View
+                  style={{
+                    flex: 1,
+                    backgroundColor: 'transparent',
+                    flexDirection: 'row',
+                  }}>
+                  <TouchableOpacity
+                    style={{
+                      flex: 0.1,
+                      alignSelf: 'flex-end',
+                      alignItems: 'center',
+                    }}
+                    onPress={toggleCamera}>
+                    <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
+                      Flip
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{
+                      flex: 0.1,
+                      alignSelf: 'flex-end',
+                      alignItems: 'center',
+                    }}
+                    onPress={recording ? stopRecording : takePicture}
+                    onLongPress={recording ? stopRecording : startRecording}>
+                    <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
+                      {recording ? 'Stop' : 'Record'}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </Camera>
+            </TapGestureHandler>
+          </Reanimated.View>
+        </PinchGestureHandler>
       </View>
-      {video && (
-        <Video
-          source={video.source}
-          rate={1.0}
-          volume={1.0}
-          isMuted={false}
-          resizeMode="cover"
-          shouldPlay={true}
-          isLooping={false}
-          style={{ width: '100%', height: 200 }}
-        />
-      )}
     </View>
   );
 };
