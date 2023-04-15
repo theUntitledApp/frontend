@@ -1,9 +1,0 @@
-const ITEM_HEIGHT = 34;
-const VISIBLE_ITEMS = 5;
-const DURATION = 1000;
-
-export {
-  ITEM_HEIGHT,
-  VISIBLE_ITEMS,
-  DURATION,
-}

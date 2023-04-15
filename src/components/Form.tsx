@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import { Picker, RegularText } from './index';
+import { RegularText } from './index';
 import { dialValues } from '../constants/GlobalConstants';
 
 const styles = StyleSheet.create({
@@ -21,7 +21,6 @@ const Form: FunctionComponent = () => {
 
   return (
     <View style={styles.formContainer}>
-      <Picker values={dialValues} onValueChange={handleValueChange} />
       <RegularText>Hello {activeDial}</RegularText>
     </View>
   );

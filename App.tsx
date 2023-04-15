@@ -24,7 +24,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <RootStack.Navigator
-        initialRouteName="MediaScreen"
+        initialRouteName="Home"
         screenOptions={{
           headerShown: false
         }}

@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Camera, CameraType } from 'expo-camera';
+import { View, Text, TouchableOpacity, StyleSheet, PixelRatio } from 'react-native';
+import { Camera, CameraType, FlashMode } from 'expo-camera';
 import { VideoProps } from 'expo-av';
 import { PinchGestureHandler, TapGestureHandler } from 'react-native-gesture-handler';
 import Reanimated from 'react-native-reanimated';
 import { Observable, Subject, from, tap, } from 'rxjs';
+import CaptureButton from '@components/CaptureButton';
 
+const radius = PixelRatio.roundToNearestPixel(30);
 
 export interface CameraInterface {
   imageTaken$?: Observable<string | undefined>;
@@ -18,6 +20,7 @@ export function useCameraScreen(): CameraInterface {
   const [hasMicrophonePermission, setHasMicrophonePermission] = useState<boolean | null>(null);
   const [cameraRef, setCameraRef] = useState<Camera | null>(null);
   const [type, setType] = useState<CameraType>(CameraType.back);
+  const [flash, setFlash] = useState<FlashMode | number>(FlashMode.off);
   const [recording, setRecording] = useState<boolean>(false);
   const [zoom, setZoom] = useState(0);
   const [imageTaken$] = useState(new Subject<string>());
@@ -35,6 +38,10 @@ export function useCameraScreen(): CameraInterface {
 
   const toggleCamera = () => {
     setType(type === CameraType.back ? CameraType.front : CameraType.back);
+  }
+
+  const toggleFlash = () => {
+    setFlash(flash === FlashMode.off ? FlashMode.torch : FlashMode.off);
   }
 
   const onDoubleTap = useCallback(() => {
@@ -80,6 +87,10 @@ export function useCameraScreen(): CameraInterface {
     }
   };
 
+  const handleCapture = (media: 'photo' | 'video') => {
+    media === 'video' ? startRecording() : takePicture();
+  }
+
   let render;
 
   if (hasCameraPermission === null || hasMicrophonePermission === null) {
@@ -94,34 +105,56 @@ export function useCameraScreen(): CameraInterface {
         <PinchGestureHandler onGestureEvent={(event) => onPinchHandler(event)} >
           <Reanimated.View style={StyleSheet.absoluteFill}>
             <TapGestureHandler onEnded={onDoubleTap} numberOfTaps={2}>
-              <Camera style={{ flex: 1 }} type={type} ref={setCameraRef} zoom={zoom}>
+              <Camera style={{ flex: 1 }} type={type} ref={setCameraRef} zoom={zoom} flashMode={flash}>
                 <View
                   style={{
                     flex: 1,
                     backgroundColor: 'transparent',
                     flexDirection: 'row',
+                    width: "100%",
+                    justifyContent: 'space-between',
+                    marginBottom: 20,
                   }}>
                   <TouchableOpacity
                     style={{
                       flex: 0.1,
                       alignSelf: 'flex-end',
                       alignItems: 'center',
+                      padding: 20,
+                      backgroundColor: 'rgba(0,244, 210, 0.2)'
                     }}
                     onPress={toggleCamera}>
                     <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
                       Flip
                     </Text>
                   </TouchableOpacity>
+                  <View style={{
+                    width: radius * 2,
+                    height: radius * 2,
+                    flex: 0.1,
+                    alignSelf: 'flex-end',
+                    alignItems: 'center',
+                    padding: 20,
+                  }}>
+                    <CaptureButton
+                      strokeWidth={8}
+                      radius={radius}
+                      timeComplete={100}
+                      onPress={(media: 'photo' | 'video') => {
+                        recording ? stopRecording() : handleCapture(media);
+                      }} />
+                  </View>
                   <TouchableOpacity
                     style={{
                       flex: 0.1,
                       alignSelf: 'flex-end',
                       alignItems: 'center',
+                      padding: 20,
+                      backgroundColor: 'rgba(0,244, 210, 0.2)'
                     }}
-                    onPress={recording ? stopRecording : takePicture}
-                    onLongPress={recording ? stopRecording : startRecording}>
+                    onPress={toggleFlash}>
                     <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
-                      {recording ? 'Stop' : 'Record'}
+                      Flash
                     </Text>
                   </TouchableOpacity>
                 </View>
