@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, PixelRatio } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, PixelRatio, Dimensions } from 'react-native';
 import { Camera, CameraType, FlashMode } from 'expo-camera';
 import { VideoProps } from 'expo-av';
 import { PinchGestureHandler, TapGestureHandler } from 'react-native-gesture-handler';
@@ -7,7 +7,30 @@ import Reanimated from 'react-native-reanimated';
 import { Observable, Subject, from, tap, } from 'rxjs';
 import CaptureButton from '@components/CaptureButton';
 
-const radius = PixelRatio.roundToNearestPixel(30);
+const radius = PixelRatio.roundToNearestPixel(40);
+const screenheight = Dimensions.get('screen').height;
+const borderheight = Math.ceil((screenheight * 0.4) / 2);
+
+const styles = StyleSheet.create({
+  container: {
+    height: '100%',
+    borderBottomWidth: borderheight,
+    borderTopWidth: borderheight,
+    borderColor: 'rgba(0, 0, 0, 0.75)',
+  },
+  iconContainer: {
+    position: 'absolute',
+    flex: 1,
+    zIndex: 2,
+    elevation: 2,
+    bottom: 0,
+    left: 0,
+    width: "100%",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  }
+})
 
 export interface CameraInterface {
   imageTaken$?: Observable<string | undefined>;
@@ -106,63 +129,58 @@ export function useCameraScreen(): CameraInterface {
           <Reanimated.View style={StyleSheet.absoluteFill}>
             <TapGestureHandler onEnded={onDoubleTap} numberOfTaps={2}>
               <Camera style={{ flex: 1 }} type={type} ref={setCameraRef} zoom={zoom} flashMode={flash}>
-                <View
-                  style={{
-                    flex: 1,
-                    backgroundColor: 'transparent',
-                    flexDirection: 'row',
-                    width: "100%",
-                    justifyContent: 'space-between',
-                    marginBottom: 20,
-                  }}>
-                  <TouchableOpacity
-                    style={{
-                      flex: 0.1,
-                      alignSelf: 'flex-end',
-                      alignItems: 'center',
+                <View style={{ flex: 1, position: 'relative' }}>
+                  <View
+                    style={styles.iconContainer}>
+                    <TouchableOpacity
+                      style={{
+                        flex: 0.1,
+                        alignSelf: 'flex-end',
+                        alignItems: 'center',
+                        padding: 20,
+                        backgroundColor: 'rgba(0,244, 210, 0.2)'
+                      }}
+                      onPress={toggleCamera}>
+                      <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
+                        Flip
+                      </Text>
+                    </TouchableOpacity>
+                    <View style={{
+                      width: radius * 2,
+                      height: radius * 2,
                       padding: 20,
-                      backgroundColor: 'rgba(0,244, 210, 0.2)'
-                    }}
-                    onPress={toggleCamera}>
-                    <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
-                      Flip
-                    </Text>
-                  </TouchableOpacity>
-                  <View style={{
-                    width: radius * 2,
-                    height: radius * 2,
-                    flex: 0.1,
-                    alignSelf: 'flex-end',
-                    alignItems: 'center',
-                    padding: 20,
-                  }}>
-                    <CaptureButton
-                      strokeWidth={8}
-                      radius={radius}
-                      timeComplete={100}
-                      onPress={(media: 'photo' | 'video') => {
-                        recording ? stopRecording() : handleCapture(media);
-                      }} />
+                    }}>
+                      <CaptureButton
+                        strokeWidth={8}
+                        radius={radius}
+                        timeComplete={100}
+                        onPress={(media: 'photo' | 'video') => {
+                          recording ? stopRecording() : handleCapture(media);
+                        }} />
+                    </View>
+                    <TouchableOpacity
+                      style={{
+                        flex: 0.1,
+                        alignSelf: 'flex-end',
+                        alignItems: 'center',
+                        padding: 20,
+                        backgroundColor: 'rgba(0,244, 210, 0.2)'
+                      }}
+                      onPress={toggleFlash}>
+                      <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
+                        Flash
+                      </Text>
+                    </TouchableOpacity>
                   </View>
-                  <TouchableOpacity
-                    style={{
-                      flex: 0.1,
-                      alignSelf: 'flex-end',
-                      alignItems: 'center',
-                      padding: 20,
-                      backgroundColor: 'rgba(0,244, 210, 0.2)'
-                    }}
-                    onPress={toggleFlash}>
-                    <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
-                      Flash
-                    </Text>
-                  </TouchableOpacity>
+                  <View style={styles.container}>
+                  </View>
                 </View>
               </Camera>
             </TapGestureHandler>
           </Reanimated.View>
         </PinchGestureHandler>
       </View>
+
     </View>
   );
   return {

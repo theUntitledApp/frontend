@@ -1,5 +1,5 @@
-import React, { FC, useState, useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { FC, useState } from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import Animated, {
   useAnimatedProps,
   useDerivedValue,
@@ -14,6 +14,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  circle: {
+    borderRadius: 100 / 2,
+    backgroundColor: "red",
+  }
 });
 
 type CaptureButton = {
@@ -32,17 +36,15 @@ const CaptureButton: FC<CaptureButton> = ({
   onPress
 }) => {
   const [currentTime, setCurrentTime] = useState<number>(0);
+  const [intervalId, setIntervalId] = useState<number | undefined>(undefined);
   const innerRadius = radius - strokeWidth / 2;
   const circumfrence = 2 * Math.PI * innerRadius;
 
   const invertedCompletion = (100 - timeComplete) / 100;
   const theta = useSharedValue(2 * Math.PI);
   const animateTo = useDerivedValue(() => 2 * Math.PI * invertedCompletion);
-  const finalStrokeDashoffset = useSharedValue(2 * Math.PI * invertedCompletion);
-
   const animatedProps = useAnimatedProps(() => {
     const value = theta.value * innerRadius;
-    finalStrokeDashoffset.value = value;
     return {
       strokeDashoffset: withTiming(value, {
         duration: 1500,
@@ -50,13 +52,22 @@ const CaptureButton: FC<CaptureButton> = ({
     };
   });
 
-  const [intervalId, setIntervalId] = useState<number | undefined>(undefined);
+  const progress = useSharedValue(innerRadius * 1.1);
+  const animateInnerTo = useDerivedValue(() => innerRadius * 0.7)
+  const animatedPropsInner = useAnimatedProps(() => {
+    const size = progress.value;
+    return {
+      r: withTiming(size, {
+        duration: 1500,
+      }),
+    }
+  })
 
   const handlePressIn = () => {
     theta.value = animateTo.value;
+    progress.value = animateInnerTo.value;
     const interval = setInterval(() => {
       setCurrentTime((prevTime) => prevTime + 100);
-      console.log(currentTime)
     }, 100);
     setIntervalId(interval);
   };
@@ -68,6 +79,7 @@ const CaptureButton: FC<CaptureButton> = ({
     } else {
       onPress('photo');
       theta.value = 2 * Math.PI;
+      progress.value = innerRadius * 1.1;
     }
     setCurrentTime(0);
     setIntervalId(undefined);
@@ -78,11 +90,11 @@ const CaptureButton: FC<CaptureButton> = ({
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
     >
-      <Svg style={StyleSheet.absoluteFill}>
+      <Svg width="100%" height="100%" viewBox="0 0 100 100">
         <AnimatedCircle
           animatedProps={animatedProps}
-          cx={radius}
-          cy={radius}
+          cx="50%"
+          cy="50%"
           r={innerRadius}
           fill={'transparent'}
           stroke="red"
@@ -91,11 +103,12 @@ const CaptureButton: FC<CaptureButton> = ({
           strokeDashoffset={2 * Math.PI * (innerRadius * 0.5)}
           strokeLinecap="round"
         />
-        <Circle
-          cx={radius}
-          cy={radius}
-          r={innerRadius * 0.7}
-          fill="red"
+        <AnimatedCircle
+          animatedProps={animatedPropsInner}
+          cx="50%"
+          cy="50%"
+          r={innerRadius * 1.1}
+          fill='white'
         />
       </Svg>
     </TouchableOpacity>

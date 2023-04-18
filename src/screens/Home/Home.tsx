@@ -11,6 +11,7 @@ import Icon, { PressableIcon } from '@components/Icon';
 import { CustomSafeAreaView } from '@components/SafeAreaView';
 
 import CaptureButton from '@components/CaptureButton';
+const radius = PixelRatio.roundToNearestPixel(40);
 
 const styles = StyleSheet.create({
   container: {
@@ -35,6 +36,22 @@ const Home = ({ navigation }: HomeProps) => {
     <CustomSafeAreaView style={styles.container}>
       <ScrollView scrollEventThrottle={16} stickyHeaderIndices={[0]}>
         <Header title={'Home'} leftIcon={leftIcon} rightIcon={rightIcon} />
+        <View style={{
+          width: radius * 2,
+          height: radius * 2,
+          alignSelf: 'flex-end',
+          alignItems: 'center',
+          padding: 20,
+        }}>
+          <CaptureButton
+            strokeWidth={8}
+            radius={radius}
+            timeComplete={100}
+
+            onPress={(media: 'photo' | 'video') => {
+              null
+            }} />
+        </View>
       </ScrollView>
     </CustomSafeAreaView >
   )
