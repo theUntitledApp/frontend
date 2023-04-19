@@ -1,5 +1,5 @@
-import { StyleSheet, View, ScrollView, PixelRatio } from 'react-native';
-import React from 'react'
+import { StyleSheet, View, ScrollView, PixelRatio, Text } from 'react-native';
+import React, { useState } from 'react'
 
 import colors from '../../components/colors'
 import { useNavigation } from '@react-navigation/native';
@@ -10,13 +10,22 @@ import Header from '@components/Header';
 import Icon, { PressableIcon } from '@components/Icon';
 import { CustomSafeAreaView } from '@components/SafeAreaView';
 
-import CaptureButton from '@components/CaptureButton';
-const radius = PixelRatio.roundToNearestPixel(40);
+import IconDropDownSelector from '@components/IconDropDownSelector'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.beige,
+  },
+  container2: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
 })
 
@@ -25,6 +34,11 @@ type HomeProps = {
 };
 
 const Home = ({ navigation }: HomeProps) => {
+  const [selectedIcon, setSelectedIcon] = useState('');
+
+  const handleSelectIcon = (icon: string) => {
+    setSelectedIcon(icon);
+  };
 
   const leftIcon = <Icon icon='left-arrow'></Icon>;
   const rightIcon = (
@@ -36,21 +50,13 @@ const Home = ({ navigation }: HomeProps) => {
     <CustomSafeAreaView style={styles.container}>
       <ScrollView scrollEventThrottle={16} stickyHeaderIndices={[0]}>
         <Header title={'Home'} leftIcon={leftIcon} rightIcon={rightIcon} />
-        <View style={{
-          width: radius * 2,
-          height: radius * 2,
-          alignSelf: 'flex-end',
-          alignItems: 'center',
-          padding: 20,
-        }}>
-          <CaptureButton
-            strokeWidth={8}
-            radius={radius}
-            timeComplete={100}
-
-            onPress={(media: 'photo' | 'video') => {
-              null
-            }} />
+        <View style={styles.container2}>
+          <Text style={styles.header}>Selected Icon: {selectedIcon || 'None'}</Text>
+          <IconDropDownSelector
+            initialIcon="friends"
+            icons={['right-arrow', 'friends', 'left-arrow']}
+            onSelectIcon={handleSelectIcon}
+          />
         </View>
       </ScrollView>
     </CustomSafeAreaView >

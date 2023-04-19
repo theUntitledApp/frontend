@@ -6,6 +6,8 @@ import { PinchGestureHandler, TapGestureHandler } from 'react-native-gesture-han
 import Reanimated from 'react-native-reanimated';
 import { Observable, Subject, from, tap, } from 'rxjs';
 import CaptureButton from '@components/CaptureButton';
+import IconDropDownSelector from '@components/IconDropDownSelector';
+import { PressableIcon } from '@components/Icon';
 
 const radius = PixelRatio.roundToNearestPixel(40);
 const screenheight = Dimensions.get('screen').height;
@@ -23,7 +25,7 @@ const styles = StyleSheet.create({
     flex: 1,
     zIndex: 2,
     elevation: 2,
-    bottom: 0,
+    bottom: 30,
     left: 0,
     width: "100%",
     flexDirection: 'row',
@@ -63,8 +65,14 @@ export function useCameraScreen(): CameraInterface {
     setType(type === CameraType.back ? CameraType.front : CameraType.back);
   }
 
-  const toggleFlash = () => {
-    setFlash(flash === FlashMode.off ? FlashMode.torch : FlashMode.off);
+  const handleSelection = (iconT: string) => {
+    if (iconT === 'left-arrow') {
+      setFlash(FlashMode.torch)
+    } else if (iconT === 'right-arrow') {
+      setFlash(FlashMode.auto)
+    } else {
+      setFlash(FlashMode.off)
+    }
   }
 
   const onDoubleTap = useCallback(() => {
@@ -132,19 +140,8 @@ export function useCameraScreen(): CameraInterface {
                 <View style={{ flex: 1, position: 'relative' }}>
                   <View
                     style={styles.iconContainer}>
-                    <TouchableOpacity
-                      style={{
-                        flex: 0.1,
-                        alignSelf: 'flex-end',
-                        alignItems: 'center',
-                        padding: 20,
-                        backgroundColor: 'rgba(0,244, 210, 0.2)'
-                      }}
-                      onPress={toggleCamera}>
-                      <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
-                        Flip
-                      </Text>
-                    </TouchableOpacity>
+                    <PressableIcon size={30} onPress={() => { toggleCamera() }}
+                      icon='camera-type'></PressableIcon>
                     <View style={{
                       width: radius * 2,
                       height: radius * 2,
@@ -158,19 +155,19 @@ export function useCameraScreen(): CameraInterface {
                           recording ? stopRecording() : handleCapture(media);
                         }} />
                     </View>
-                    <TouchableOpacity
-                      style={{
-                        flex: 0.1,
-                        alignSelf: 'flex-end',
-                        alignItems: 'center',
-                        padding: 20,
-                        backgroundColor: 'rgba(0,244, 210, 0.2)'
-                      }}
-                      onPress={toggleFlash}>
-                      <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
-                        Flash
-                      </Text>
-                    </TouchableOpacity>
+                    <View style={{
+                      flex: 0.1,
+                      alignItems: 'center',
+                      alignSelf: 'flex-end',
+                      justifyContent: 'center',
+                      padding: 20,
+                    }}>
+                      <IconDropDownSelector
+                        initialIcon="camera-flash"
+                        icons={['right-arrow', 'left-arrow', 'external-arrow']}
+                        onSelectIcon={handleSelection}
+                      />
+                    </View>
                   </View>
                   <View style={styles.container}>
                   </View>

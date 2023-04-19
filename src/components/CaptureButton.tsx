@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import Animated, {
   useAnimatedProps,
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   }
 });
 
-type CaptureButton = {
+type CaptureButtonProps = {
   strokeWidth: number;
   radius: number;
   timeComplete: number;
@@ -29,7 +29,7 @@ type CaptureButton = {
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
-const CaptureButton: FC<CaptureButton> = ({
+const CaptureButton: FunctionComponent<CaptureButtonProps> = ({
   radius,
   strokeWidth,
   timeComplete,

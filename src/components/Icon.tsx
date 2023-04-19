@@ -3,7 +3,7 @@ import { StyleProp, TextStyle } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import colors from './colors';
 
-import { friends, rightArrow, leftArrow, externalArrow, cameraButton } from './icons/IconSummary';
+import { friends, rightArrow, leftArrow, externalArrow, cameraButton, cameraType, cameraFlash } from './icons/IconSummary';
 import { Pressable } from './Pressable';
 
 export const ICONS = {
@@ -12,6 +12,8 @@ export const ICONS = {
   'left-arrow': leftArrow,
   'external-arrow': externalArrow,
   'camera-button': cameraButton,
+  'camera-type': cameraType,
+  'camera-flash': cameraFlash,
 };
 
 export type Icon = keyof typeof ICONS;
