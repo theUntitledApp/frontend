@@ -1,0 +1,62 @@
+import React, { FunctionComponent } from 'react';
+import { View, Image, Text, StyleSheet } from 'react-native';
+
+type UserInfoProp = {
+  name: string,
+  image: string,
+  location?: string,
+  position: 'left' | 'right',
+}
+
+const UserInfo: FunctionComponent<UserInfoProp> = ({ name, image, position, location }) => {
+  return (
+    <View style={[styles.container, position === 'left' ? styles.leftPosition : styles.rightPosition]}>
+      {name && position === 'right' && <Text style={styles.text}>{name}</Text>}
+      <View style={styles.imageContainer}>
+        <Image source={{ uri: image }} style={styles.image} />
+      </View>
+      {name && position === 'left' && <Text style={styles.text}>{name}</Text>}
+    </View>
+  )
+}
+
+export default UserInfo;
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    overflow: 'hidden',
+    width: "100%",
+  },
+  leftPosition: {
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  rightPosition: {
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  imageContainer: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    overflow: 'hidden',
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+  },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+  },
+  text: {
+    marginLeft: 8,
+    marginRight: 8,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});

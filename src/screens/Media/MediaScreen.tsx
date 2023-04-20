@@ -3,6 +3,15 @@ import { Image, } from 'react-native'
 import { useState, useEffect } from 'react';
 import { useCameraScreen } from '../Camera/CameraScreen';
 
+export interface MediaInterface {
+  s: string;
+}
+
+export function useMediaScreen(): MediaInterface {
+  const s = "0";
+  return { s }
+}
+
 const MediaScreen: React.FunctionComponent = () => {
   const [mode, setMode] = useState<'camera' | 'preview-video' | 'preview-photo'>('camera');
   const [fileUrl, setFileUrl] = useState<string>();

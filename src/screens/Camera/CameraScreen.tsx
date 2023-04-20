@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, PixelRatio, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, PixelRatio, Dimensions } from 'react-native';
 import { Camera, CameraType, FlashMode } from 'expo-camera';
 import { VideoProps } from 'expo-av';
 import { PinchGestureHandler, TapGestureHandler } from 'react-native-gesture-handler';

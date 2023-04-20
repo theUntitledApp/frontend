@@ -10,7 +10,7 @@ import Header from '@components/Header';
 import Icon, { PressableIcon } from '@components/Icon';
 import { CustomSafeAreaView } from '@components/SafeAreaView';
 
-import IconDropDownSelector from '@components/IconDropDownSelector'
+import SplitView from '@components/SplitView';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,14 +32,9 @@ const styles = StyleSheet.create({
 type HomeProps = {
   navigation: NativeStackNavigationProp<RootStackParams>;
 };
+const mockLink = "https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg"
 
 const Home = ({ navigation }: HomeProps) => {
-  const [selectedIcon, setSelectedIcon] = useState('');
-
-  const handleSelectIcon = (icon: string) => {
-    setSelectedIcon(icon);
-  };
-
   const leftIcon = <Icon icon='left-arrow'></Icon>;
   const rightIcon = (
     <PressableIcon onPress={() => { navigation.navigate('MediaScreen') }}
@@ -50,14 +45,7 @@ const Home = ({ navigation }: HomeProps) => {
     <CustomSafeAreaView style={styles.container}>
       <ScrollView scrollEventThrottle={16} stickyHeaderIndices={[0]}>
         <Header title={'Home'} leftIcon={leftIcon} rightIcon={rightIcon} />
-        <View style={styles.container2}>
-          <Text style={styles.header}>Selected Icon: {selectedIcon || 'None'}</Text>
-          <IconDropDownSelector
-            initialIcon="friends"
-            icons={['right-arrow', 'friends', 'left-arrow']}
-            onSelectIcon={handleSelectIcon}
-          />
-        </View>
+        <SplitView title="Tests" subtitle="Tests TestsTests" bottomImageUrl={mockLink} />
       </ScrollView>
     </CustomSafeAreaView >
   )
