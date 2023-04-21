@@ -1,9 +1,9 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useState } from 'react';
+import { VideoProps } from 'expo-av';
 import { Image, StyleSheet, Text, View, Button } from 'react-native';
 import { RootStackParams } from 'src/screens/rootStacks';
 import colors from './colors';
-import { PressableIcon } from './Icon';
 import UserInfo from './UserInfo';
 import { useNavigation } from '@react-navigation/native';
 
@@ -22,27 +22,31 @@ const ShadowedInsetImage = ({ source }: { source: string }) => (
   </View>
 );
 
-const TakeImage = () => {
+const TakeImage = (callback: any) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>();
   return (
     <View style={[styles.shadowedInsetImageContainer, styles.shadowedInsetImageContainerEmpty]}>
       <Button
         title="Take a Picture"
         color="white"
-        onPress={() =>
-          navigation.navigate("MediaScreen")
-        }
+        onPress={() => {
+          navigation.navigate('MediaScreen')
+        }}
       />
     </View>
   )
 }
 
+
 const SplitView: FunctionComponent<SplitViewProps> = ({ users, title, subtitle, topImageUrl, bottomImageUrl }: SplitViewProps) => {
+  const [file, setFile] = useState<string | VideoProps>('');
+  console.log(file)
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         {topImageUrl && <ShadowedInsetImage source={topImageUrl} />}
-        {!topImageUrl && <TakeImage />}
+        {!topImageUrl && <TakeImage callback={setFile} />}
       </View>
       <UserInfo name="Alex P." image="https://images.unsplash.com/photo-1608848461950-0fe51dfc41cb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NHx8fGVufDB8fHx8&w=1000&q=80" position="left" location=""></UserInfo>
       <View style={styles.textContainer}>
