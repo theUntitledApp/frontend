@@ -15,12 +15,25 @@ export interface SplitViewProps {
   subtitle: string;
 };
 
+type ShadowedInsetImageProp = {
+  source: string,
+  blur?: boolean,
+}
 
-const ShadowedInsetImage = ({ source }: { source: string }) => (
-  <View style={styles.shadowedInsetImageContainer}>
-    <Image source={{ uri: source }} style={styles.shadowedInsetImage} />
-  </View>
-);
+type BlurredViewProp = {
+  blur: boolean,
+  url: string,
+}
+
+const ShadowedInsetImage: FunctionComponent<ShadowedInsetImageProp> = ({ source, blur }) => {
+  console.log(blur)
+  return (
+    <View style={styles.shadowedInsetImageContainer}>
+      <Image source={{ uri: source }} style={styles.shadowedInsetImage} blurRadius={blur === true ? 90 : 0} />
+    </View>
+
+  )
+};
 
 const TakeImage = (callback: any) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>();
@@ -37,10 +50,26 @@ const TakeImage = (callback: any) => {
   )
 }
 
+const BlurredView: FunctionComponent<BlurredViewProp> = ({ blur, url }) => {
+  if (blur) {
+    return (
+      <View style={styles.imageContainer}>
+        <ShadowedInsetImage source={url} />
+      </View>
+    )
+  } else {
+    return (
+      <View style={[styles.imageContainer]}>
+        <ShadowedInsetImage source={url} blur={true} />
+      </View>
+    )
+  }
 
-const SplitView: FunctionComponent<SplitViewProps> = ({ users, title, subtitle, topImageUrl, bottomImageUrl }: SplitViewProps) => {
+}
+
+
+const SplitView: FunctionComponent<SplitViewProps> = ({ users, title, subtitle, topImageUrl, bottomImageUrl }) => {
   const [file, setFile] = useState<string | VideoProps>('');
-  console.log(file)
 
   return (
     <View style={styles.container}>
@@ -56,9 +85,7 @@ const SplitView: FunctionComponent<SplitViewProps> = ({ users, title, subtitle, 
         </View>
       </View>
       <UserInfo name="Adnan A." image="https://images.unsplash.com/photo-1608848461950-0fe51dfc41cb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NHx8fGVufDB8fHx8&w=1000&q=80" position="right" location=""></UserInfo>
-      <View style={styles.imageContainer}>
-        <ShadowedInsetImage source={bottomImageUrl} />
-      </View>
+      <BlurredView blur={!!topImageUrl} url={bottomImageUrl} ></BlurredView>
     </View>
   );
 }
@@ -67,7 +94,6 @@ export default SplitView;
 const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
-
     elevation: 5,
     overflow: 'hidden',
     paddingVertical: 15,

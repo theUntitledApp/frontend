@@ -7,6 +7,9 @@ type rootStackParamList = {
   CameraScreen: undefined,
   MediaScreen: undefined,
   PermissionsScreen: undefined,
+  Friends: {
+    uid: number
+  },
 }
 
 type RootStackParams = rootStackParamList;

@@ -70,7 +70,7 @@ const MediaScreen: FunctionComponent = () => {
 
   if (mode === 'preview-photo') {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, position: 'relative' }}>
         <Image source={{ uri: fileUrl }} style={{ flex: 1, width: '100%' }} />
         <ApprovementButtons decline={retake} accept={accept} />
       </View>
@@ -78,7 +78,7 @@ const MediaScreen: FunctionComponent = () => {
   }
   if (mode === 'preview-video') {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, position: 'relative' }}>
         <Video
           source={video.source}
           rate={1.0}

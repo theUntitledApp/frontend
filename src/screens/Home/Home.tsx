@@ -1,5 +1,5 @@
-import { StyleSheet, View, ScrollView, PixelRatio, Text } from 'react-native';
-import React, { useState } from 'react'
+import { StyleSheet, ScrollView } from 'react-native';
+import React from 'react'
 
 import colors from '../../components/colors'
 import { useNavigation } from '@react-navigation/native';
@@ -35,9 +35,9 @@ type HomeProps = {
 const mockLink = "https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg"
 
 const Home = ({ navigation }: HomeProps) => {
-  const leftIcon = <Icon icon='left-arrow'></Icon>;
-  const rightIcon = (
-    <PressableIcon onPress={() => { navigation.navigate('MediaScreen') }}
+  const rightIcon = <Icon icon='left-arrow'></Icon>;
+  const leftIcon = (
+    <PressableIcon onPress={() => { navigation.navigate('Friends', { uid: 1 }) }}
       icon='friends'></PressableIcon>
   );
 
