@@ -7,6 +7,7 @@ import { StyleSheet } from 'react-native';
 import colors from '@components/colors'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParams } from '../rootStacks';
+import UserInfo from '@components/UserInfo';
 
 
 const styles = StyleSheet.create({

@@ -1,22 +1,28 @@
 import React, { FunctionComponent } from 'react';
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParams } from 'src/screens/rootStacks';
 
 type UserInfoProp = {
-  name: string,
+  name?: string,
   image: string,
   location?: string,
-  position: 'left' | 'right',
+  position?: 'left' | 'right',
+  userId: number,
+  navigation: NativeStackNavigationProp<RootStackParams>,
 }
 
-const UserInfo: FunctionComponent<UserInfoProp> = ({ name, image, position, location }) => {
+const UserInfo: FunctionComponent<UserInfoProp> = ({ name, image, position, location, userId, navigation }) => {
   return (
-    <View style={[styles.container, position === 'left' ? styles.leftPosition : styles.rightPosition]}>
-      {name && position === 'right' && <Text style={styles.text}>{name}</Text>}
-      <View style={styles.imageContainer}>
-        <Image source={{ uri: image }} style={styles.image} />
+    <TouchableOpacity onPress={() => { navigation.navigate('Profile', { uid: userId }) }} >
+      <View style={[styles.container, position === 'left' ? styles.leftPosition : styles.rightPosition]}>
+        {name && position === 'right' && <Text style={styles.text}>{name}</Text>}
+        <View style={styles.imageContainer}>
+          <Image source={{ uri: image }} style={styles.image} />
+        </View>
+        {name && position === 'left' && <Text style={styles.text}>{name}</Text>}
       </View>
-      {name && position === 'left' && <Text style={styles.text}>{name}</Text>}
-    </View>
+    </TouchableOpacity>
   )
 }
 

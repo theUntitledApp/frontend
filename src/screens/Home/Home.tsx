@@ -11,6 +11,8 @@ import Icon, { PressableIcon } from '@components/Icon';
 import { CustomSafeAreaView } from '@components/SafeAreaView';
 
 import SplitView from '@components/SplitView';
+import LoadingAnimation from '@components/LoadingAnimation';
+import UserInfo from '@components/UserInfo';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,12 +37,13 @@ type HomeProps = {
 const mockLink = "https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg"
 
 const Home = ({ navigation }: HomeProps) => {
-  const rightIcon = <Icon icon='left-arrow'></Icon>;
   const leftIcon = (
     <PressableIcon onPress={() => { navigation.navigate('Friends', { uid: 1 }) }}
       icon='friends'></PressableIcon>
   );
-
+  const rightIcon = (
+    <UserInfo navigation={navigation} userId={1} image="https://images.unsplash.com/photo-1608848461950-0fe51dfc41cb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NHx8fGVufDB8fHx8&w=1000&q=80" />
+  );
   return (
     <CustomSafeAreaView style={styles.container}>
       <ScrollView scrollEventThrottle={16} stickyHeaderIndices={[0]}>
