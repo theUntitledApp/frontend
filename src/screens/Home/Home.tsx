@@ -13,6 +13,7 @@ import { CustomSafeAreaView } from '@components/SafeAreaView';
 import SplitView from '@components/SplitView';
 import LoadingAnimation from '@components/LoadingAnimation';
 import UserInfo from '@components/UserInfo';
+import PuzzleContent from '@components/PuzzleContent';
 
 const styles = StyleSheet.create({
   container: {
@@ -48,7 +49,8 @@ const Home = ({ navigation }: HomeProps) => {
     <CustomSafeAreaView style={styles.container}>
       <ScrollView scrollEventThrottle={16} stickyHeaderIndices={[0]}>
         <Header title={'Home'} leftIcon={leftIcon} rightIcon={rightIcon} />
-        <SplitView title="Tests" subtitle="Tests TestsTests" bottomImageUrl={mockLink} />
+        <PuzzleContent source={mockLink} />
+        <PuzzleContent source={mockLink} />
       </ScrollView>
     </CustomSafeAreaView >
   )
