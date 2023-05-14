@@ -6,6 +6,8 @@ import { useCameraScreen, } from '../Camera/CameraScreen';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParams } from '../rootStacks';
+import PuzzleView from '@components/PuzzleView';
+
 
 type MediaMode = 'camera' | 'preview-video' | 'preview-photo';
 
@@ -70,25 +72,29 @@ const MediaScreen: FunctionComponent = () => {
 
   if (mode === 'preview-photo') {
     return (
-      <View style={{ flex: 1, position: 'relative' }}>
-        <Image source={{ uri: fileUrl }} style={{ flex: 1, width: '100%' }} />
+      <View style={{ flex: 1, position: 'relative', backgroundColor: 'black' }}>
+        <PuzzleView>
+          <Image source={{ uri: fileUrl }} style={{ flex: 1, width: '100%' }} />
+        </PuzzleView>
         <ApprovementButtons decline={retake} accept={accept} />
       </View>
     );
   }
   if (mode === 'preview-video') {
     return (
-      <View style={{ flex: 1, position: 'relative' }}>
-        <Video
-          source={video.source}
-          rate={1.0}
-          volume={1.0}
-          isMuted={false}
-          resizeMode="cover"
-          shouldPlay={true}
-          isLooping={false}
-          style={{ flex: 1, width: '100%' }}
-        />
+      <View style={{ flex: 1, position: 'relative', backgroundColor: 'black' }}>
+        <PuzzleView>
+          <Video
+            source={video.source}
+            rate={1.0}
+            volume={1.0}
+            isMuted={false}
+            resizeMode="cover"
+            shouldPlay={true}
+            isLooping={false}
+            style={{ flex: 1, width: '100%' }}
+          />
+        </PuzzleView>
         <ApprovementButtons decline={retake} accept={accept} />
       </View>
     );

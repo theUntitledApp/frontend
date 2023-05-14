@@ -8,6 +8,9 @@ import { Observable, Subject, from, tap, } from 'rxjs';
 import CaptureButton from '@components/CaptureButton';
 import IconDropDownSelector from '@components/IconDropDownSelector';
 import { PressableIcon } from '@components/Icon';
+import MaskedView from '@react-native-masked-view/masked-view';
+import { Svg, Path, Rect, ClipPath, Defs } from 'react-native-svg';
+import PuzzleView from '@components/PuzzleView';
 
 const radius = PixelRatio.roundToNearestPixel(40);
 const screenheight = Dimensions.get('screen').height;
@@ -15,13 +18,14 @@ const borderheight = Math.ceil((screenheight * 0.4) / 2);
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
     borderBottomWidth: borderheight,
     borderTopWidth: borderheight,
-    borderColor: 'rgba(0, 0, 0, 0.75)',
+    margin: 0,
+    padding: 0,
+    borderColor: 'black',
+    position: 'relative',
   },
   iconContainer: {
-    position: 'absolute',
     flex: 1,
     zIndex: 2,
     elevation: 2,
@@ -131,51 +135,51 @@ export function useCameraScreen(): CameraInterface {
     render = <Text>No access to camera</Text>;
   }
   render = (
-    <View style={{ flex: 1 }}>
-      <View style={{ flex: 1 }}>
-        <PinchGestureHandler onGestureEvent={(event) => onPinchHandler(event)} >
-          <Reanimated.View style={StyleSheet.absoluteFill}>
-            <TapGestureHandler onEnded={onDoubleTap} numberOfTaps={2}>
-              <Camera style={{ flex: 1 }} type={type} ref={setCameraRef} zoom={zoom} flashMode={flash}>
-                <View style={{ flex: 1, position: 'relative' }}>
-                  <View
-                    style={styles.iconContainer}>
-                    <PressableIcon size={30} onPress={() => { toggleCamera() }}
-                      icon='camera-type'></PressableIcon>
-                    <View style={{
-                      width: radius * 2,
-                      height: radius * 2,
-                      padding: 20,
-                    }}>
-                      <CaptureButton
-                        strokeWidth={8}
-                        radius={radius}
-                        timeComplete={100}
-                        onPress={(media: 'photo' | 'video') => {
-                          recording ? stopRecording() : handleCapture(media);
-                        }} />
-                    </View>
-                    <View style={{
-                      flex: 0.1,
-                      alignItems: 'center',
-                      alignSelf: 'flex-end',
-                      justifyContent: 'center',
-                      padding: 20,
-                    }}>
-                      <IconDropDownSelector
-                        initialIcon="camera-flash"
-                        icons={['right-arrow', 'left-arrow', 'external-arrow']}
-                        onSelectIcon={handleSelection}
-                      />
-                    </View>
-                  </View>
-                  <View style={styles.container}>
-                  </View>
-                </View>
-              </Camera>
-            </TapGestureHandler>
-          </Reanimated.View>
-        </PinchGestureHandler>
+    <View style={{ flex: 1, backgroundColor: 'black', position: 'relative' }}>
+      <PuzzleView>
+        <View style={{ flex: 1 }}>
+          <PinchGestureHandler onGestureEvent={(event) => onPinchHandler(event)} >
+            <Reanimated.View style={StyleSheet.absoluteFill}>
+              <TapGestureHandler onEnded={onDoubleTap} numberOfTaps={2}>
+                <Camera style={{ flex: 1 }} type={type} ref={setCameraRef} zoom={zoom} flashMode={flash}>
+                </Camera>
+              </TapGestureHandler>
+            </Reanimated.View>
+          </PinchGestureHandler>
+        </View>
+      </PuzzleView>
+      <View style={{ flex: 1, position: 'absolute', top: "90%" }}>
+        <View
+          style={styles.iconContainer}>
+          <PressableIcon size={30} onPress={() => { toggleCamera() }}
+            icon='camera-type' ></PressableIcon>
+          <View style={{
+            width: radius * 2,
+            height: radius * 2,
+            padding: 20,
+          }}>
+            <CaptureButton
+              strokeWidth={8}
+              radius={radius}
+              timeComplete={100}
+              onPress={(media: 'photo' | 'video') => {
+                recording ? stopRecording() : handleCapture(media);
+              }} />
+          </View>
+          <View style={{
+            flex: 0.1,
+            alignItems: 'center',
+            alignSelf: 'flex-end',
+            justifyContent: 'center',
+            padding: 20,
+          }}>
+            <IconDropDownSelector
+              initialIcon="camera-flash"
+              icons={['right-arrow', 'left-arrow', 'external-arrow']}
+              onSelectIcon={handleSelection}
+            />
+          </View>
+        </View>
       </View>
 
     </View>
