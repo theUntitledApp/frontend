@@ -5,7 +5,7 @@ import Headline from './Headline';
 
 export type HeaderProps = {
   leftIcon?: JSX.Element;
-  rightIcon?: JSX.Element; 
+  rightIcon?: JSX.Element;
   title: string;
 }
 
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
 })
 
 const Header: FunctionComponent<HeaderProps> = (props) => {
-  const styleArray = [ styles.headerContainer, ];
+  const styleArray = [styles.headerContainer,];
 
   return (
     <View style={styleArray}>

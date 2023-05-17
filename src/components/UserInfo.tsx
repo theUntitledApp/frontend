@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     height: 30,
     borderRadius: 15,
     overflow: 'hidden',
-    shadowColor: 'black',
+    shadowColor: 'white',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 4,

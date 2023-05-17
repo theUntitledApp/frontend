@@ -8,8 +8,6 @@ import { Observable, Subject, from, tap, } from 'rxjs';
 import CaptureButton from '@components/CaptureButton';
 import IconDropDownSelector from '@components/IconDropDownSelector';
 import { PressableIcon } from '@components/Icon';
-import MaskedView from '@react-native-masked-view/masked-view';
-import { Svg, Path, Rect, ClipPath, Defs } from 'react-native-svg';
 import PuzzleView from '@components/PuzzleView';
 
 const radius = PixelRatio.roundToNearestPixel(40);
@@ -136,7 +134,7 @@ export function useCameraScreen(): CameraInterface {
   }
   render = (
     <View style={{ flex: 1, backgroundColor: 'black', position: 'relative' }}>
-      <PuzzleView>
+      <PuzzleView version={1}>
         <View style={{ flex: 1 }}>
           <PinchGestureHandler onGestureEvent={(event) => onPinchHandler(event)} >
             <Reanimated.View style={StyleSheet.absoluteFill}>
@@ -181,7 +179,6 @@ export function useCameraScreen(): CameraInterface {
           </View>
         </View>
       </View>
-
     </View>
   );
   return {

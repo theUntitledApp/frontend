@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, Text } from 'react-native';
 import React from 'react'
 
 import colors from '../../components/colors'
@@ -10,15 +10,13 @@ import Header from '@components/Header';
 import Icon, { PressableIcon } from '@components/Icon';
 import { CustomSafeAreaView } from '@components/SafeAreaView';
 
-import SplitView from '@components/SplitView';
-import LoadingAnimation from '@components/LoadingAnimation';
 import UserInfo from '@components/UserInfo';
 import PuzzleContent from '@components/PuzzleContent';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.beige,
+    backgroundColor: 'black'
   },
   container2: {
     flex: 1,
@@ -40,7 +38,7 @@ const mockLink = "https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garde
 const Home = ({ navigation }: HomeProps) => {
   const leftIcon = (
     <PressableIcon onPress={() => { navigation.navigate('Friends', { uid: 1 }) }}
-      icon='friends'></PressableIcon>
+      icon='friends' color="white"></PressableIcon>
   );
   const rightIcon = (
     <UserInfo navigation={navigation} userId={1} image="https://images.unsplash.com/photo-1608848461950-0fe51dfc41cb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NHx8fGVufDB8fHx8&w=1000&q=80" />
@@ -49,7 +47,6 @@ const Home = ({ navigation }: HomeProps) => {
     <CustomSafeAreaView style={styles.container}>
       <ScrollView scrollEventThrottle={16} stickyHeaderIndices={[0]}>
         <Header title={'Home'} leftIcon={leftIcon} rightIcon={rightIcon} />
-        <PuzzleContent source={mockLink} />
         <PuzzleContent source={mockLink} />
       </ScrollView>
     </CustomSafeAreaView >

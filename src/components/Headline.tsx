@@ -10,7 +10,7 @@ export type HeadlineProps = {
 
 const styles = StyleSheet.create({
   basicDisplay: {
-    color: colors.midnightBlack,
+    color: 'white',
     textAlign: 'center',
     fontFamily: 'Lato-Bold',
   },
