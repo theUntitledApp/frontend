@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView, Text } from 'react-native';
+import { StyleSheet, ScrollView, Text, View } from 'react-native';
 import React from 'react'
 
 import colors from '../../components/colors'
@@ -45,9 +45,64 @@ const Home = ({ navigation }: HomeProps) => {
   );
   return (
     <CustomSafeAreaView style={styles.container}>
-      <ScrollView scrollEventThrottle={16} stickyHeaderIndices={[0]}>
-        <Header title={'Home'} leftIcon={leftIcon} rightIcon={rightIcon} />
-        <PuzzleContent source={mockLink} />
+      <ScrollView scrollEventThrottle={16} >
+        <View>
+          <PuzzleContent source={mockLink} />
+        </View>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
+        <Text style={{ color: 'white' }}>AHHH</Text>
       </ScrollView>
     </CustomSafeAreaView >
   )

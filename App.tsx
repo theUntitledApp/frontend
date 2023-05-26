@@ -8,6 +8,8 @@ import { useFonts } from 'expo-font';
 import { Welcome, Login, MediaScreen, Friends, Profile } from './src/screens/screenIndex';
 import { makeHomeScreen } from './src/screens/Home/Home';
 
+import { Text, View } from 'react-native'
+
 const RootStack = createNativeStackNavigator<RootStackParams>();
 
 export default function App() {
@@ -26,12 +28,22 @@ export default function App() {
       <RootStack.Navigator
         initialRouteName="Home"
         screenOptions={{
-          headerShown: false
+          headerTransparent: true,
+          headerStyle: {
+            backgroundColor: 'transparent',
+          },
         }}
       >
         <RootStack.Screen
           name="Home"
           component={() => makeHomeScreen()}
+          options={{
+            header: () => (
+              <View>
+                <Text style={{ color: 'white', backgroundColor: 'transparent' }}>Test</Text>
+              </View>
+            )
+          }}
         />
         <RootStack.Screen
           name="Welcome"

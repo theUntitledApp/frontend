@@ -1,5 +1,3 @@
-import { VideoProps } from "expo-av";
-
 type rootStackParamList = {
   Welcome: undefined,
   Home: undefined,

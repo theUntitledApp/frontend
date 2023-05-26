@@ -9,6 +9,7 @@ type PuzzleContentProp = {
 
 const PuzzleContent: FunctionComponent<PuzzleContentProp> = ({ source }) => {
   const svgHeight = Dimensions.get('window').height * 0.5;
+  const svgHeightDiff = svgHeight - (svgHeight * 0.2075)
 
 
   return (
@@ -18,7 +19,7 @@ const PuzzleContent: FunctionComponent<PuzzleContentProp> = ({ source }) => {
           <Image source={{ uri: source }} style={{ flex: 1, width: '100%', height: svgHeight }} />
         </PuzzleView>
       </View>
-      <View style={{ flex: 1, width: "100%", position: 'absolute', top: svgHeight - 93, left: 0 }}>
+      <View style={{ flex: 1, width: "100%", position: 'absolute', top: svgHeightDiff, left: 0 }}>
         <PuzzleView version={2}>
           <Image source={{ uri: source }} style={{ flex: 1, width: '100%', height: svgHeight }} />
         </PuzzleView>
