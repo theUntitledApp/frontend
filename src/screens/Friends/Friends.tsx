@@ -27,7 +27,6 @@ const Friends = ({ navigation }: FriendsProps) => {
 
   return (
     <CustomSafeAreaView style={styles.container}>
-      <Header title={'Friends'} rightIcon={rightIcon} />
       <SearchBar onSearch={() => { }} />
       <FriendProfiles imageUrl={mockLink} username="Adnan A." />
     </CustomSafeAreaView>

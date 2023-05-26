@@ -2,46 +2,54 @@ import React, { FunctionComponent } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Headline from './Headline';
+import { PressableIcon, Icon } from '@components/Icon';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParams } from '../screens/rootStacks'
+
 
 export type HeaderProps = {
-  leftIcon?: JSX.Element;
-  rightIcon?: JSX.Element;
+  left?: Icon;
+  right?: Icon;
   title: string;
 }
 
 const styles = StyleSheet.create({
-  headerContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-  },
-  headerNoIcons: {
-    justifyContent: "center",
-  },
-  headerWithLeftIcon: {
-    justifyContent: "flex-start",
-  },
-  headerWithRightIcon: {
-    justifyContent: "flex-end",
-  },
-  titleContainer: {
-    flex: 1,
-    alignItems: "center",
-  },
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    paddingHorizontal: 16,
+    marginTop: 16,
+    height: 80,
+  }
 })
 
-const Header: FunctionComponent<HeaderProps> = (props) => {
-  const styleArray = [styles.headerContainer,];
+
+const Header: FunctionComponent<HeaderProps> = ({ title, left, right }) => {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>();
+
+  const leftIcon = (left &&
+    <PressableIcon onPress={() => { navigation.navigate('Friends', { uid: 1 }) }}
+      icon={left} color="white"></PressableIcon>
+  );
+
+  const rightIcon = (right &&
+    <PressableIcon onPress={() => { navigation.navigate('Friends', { uid: 1 }) }}
+      icon={right} color="white"></PressableIcon>
+  );
 
   return (
-    <View style={styleArray}>
-      <>{props.leftIcon}</>
-      <View style={styles.titleContainer}>
-        <Headline level={'h2'}>{props.title}</Headline >
-      </View>
-      <>{props.rightIcon}</>
+    <View
+      style={styles.container}
+    >
+      <>{leftIcon}</>
+
+      <Headline level="h2">{title}</Headline>
+
+      <>{rightIcon}</>
+
     </View>
   )
 }

@@ -8,7 +8,9 @@ import { useFonts } from 'expo-font';
 import { Welcome, Login, MediaScreen, Friends, Profile } from './src/screens/screenIndex';
 import { makeHomeScreen } from './src/screens/Home/Home';
 
-import { Text, View, SafeAreaView, Button, TouchableOpacity } from 'react-native'
+import { Text, View, TouchableOpacity } from 'react-native'
+import Header from '@components/Header';
+
 
 const RootStack = createNativeStackNavigator<RootStackParams>();
 
@@ -36,27 +38,7 @@ export default function App() {
           component={() => makeHomeScreen()}
           options={{
             header: () => (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  backgroundColor: 'transparent',
-                  paddingHorizontal: 16,
-                  marginTop: 16,
-                  height: 80,
-                }}
-              >
-                <TouchableOpacity >
-                  <Text style={{ color: '#fff' }}>Test</Text>
-                </TouchableOpacity>
-
-                <Text style={{ color: '#fff', fontSize: 18 }}>title</Text>
-
-                <TouchableOpacity >
-                  <Text style={{ color: '#fff' }}>Test</Text>
-                </TouchableOpacity>
-              </View>
+              <Header title="Home" left={"friends"} right={"friends"} />
             ),
           }}
         />
