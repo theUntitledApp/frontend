@@ -23,7 +23,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     marginTop: 16,
     height: 80,
-  }
+  },
+  headerNoIcons: {
+    justifyContent: "center",
+  },
+  headerWithLeftIcon: {
+    justifyContent: "flex-start",
+  },
+  headerWithRightIcon: {
+    justifyContent: "flex-end",
+  },
 })
 
 
@@ -44,11 +53,11 @@ const Header: FunctionComponent<HeaderProps> = ({ title, left, right }) => {
     <View
       style={styles.container}
     >
-      <>{leftIcon}</>
+      <View>{leftIcon}</View>
 
       <Headline level="h2">{title}</Headline>
 
-      <>{rightIcon}</>
+      <View>{rightIcon}</View>
 
     </View>
   )

@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   tabContent: {
+    marginTop: 200,
     paddingVertical: 10,
     paddingHorizontal: 10,
   }
@@ -26,7 +27,7 @@ const Tab: FunctionComponent<TabProps> = (props) => {
 
   return (
     <View style={styles.tab}>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: 'row', marginTop: 30 }}>
         {tabs.map((tab, idx) => (
           <TouchableOpacity
             key={idx}
@@ -34,12 +35,13 @@ const Tab: FunctionComponent<TabProps> = (props) => {
             style={{
               flex: 1,
               paddingVertical: 10,
+              paddingHorizontal: 10,
               alignItems: 'center',
               borderBottomWidth: activeIndex === idx ? 2 : 0,
-              borderBottomColor: 'black',
+              borderBottomColor: 'white',
             }}
           >
-            <Text>{tab.title}</Text>
+            <Text style={{ color: 'white' }}>{tab.title}</Text>
           </TouchableOpacity>
         ))}
       </View>

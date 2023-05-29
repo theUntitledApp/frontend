@@ -7,8 +7,6 @@ import { useFonts } from 'expo-font';
 
 import { Welcome, Login, MediaScreen, Friends, Profile } from './src/screens/screenIndex';
 import { makeHomeScreen } from './src/screens/Home/Home';
-
-import { Text, View, TouchableOpacity } from 'react-native'
 import Header from '@components/Header';
 
 
@@ -28,9 +26,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <RootStack.Navigator
-        initialRouteName="Home"
+        initialRouteName="Login"
         screenOptions={{
-          headerTransparent: true
+          headerTransparent: true,
         }}
       >
         <RootStack.Screen
@@ -58,7 +56,15 @@ export default function App() {
           name="Profile"
           component={Profile}
         />
-        <RootStack.Screen name='Login' component={Login} />
+        <RootStack.Screen
+          name='Login'
+          component={Login}
+          options={{
+            header: () => (
+              <Header title="Login" />
+            ),
+          }}
+        />
       </RootStack.Navigator>
     </NavigationContainer>
   );
